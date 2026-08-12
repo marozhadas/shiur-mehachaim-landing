@@ -1,0 +1,653 @@
+<!-- שיעור מהחיים — Landing Page Preview (self-contained, open directly in browser) -->
+<meta charset="UTF-8">
+<title>שיעור מהחיים | יחד מצמיחים את הדור הבא</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="public/visual-editor.css">
+<style>
+/* ================= FONTS (local files from /פונטים) ================= */
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-ultralight-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-ultralight-aaa.woff') format('woff');font-weight:200;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-light-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-light-aaa.woff') format('woff');font-weight:300;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-regular-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-regular-aaa.woff') format('woff');font-weight:400;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-medium-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-medium-aaa.woff') format('woff');font-weight:500;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-demibold-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-demibold-aaa.woff') format('woff');font-weight:600;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-bold-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-bold-aaa.woff') format('woff');font-weight:700;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-ultrabold-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-ultrabold-aaa.woff') format('woff');font-weight:800;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-black-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-black-aaa.woff') format('woff');font-weight:900;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('public/fonts/stanga/stanga-ultralight-aaa.woff2') format('woff2'),url('public/fonts/stanga/stanga-ultralight-aaa.woff') format('woff');font-weight:200;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('public/fonts/stanga/stanga-light-aaa.woff2') format('woff2'),url('public/fonts/stanga/stanga-light-aaa.woff') format('woff');font-weight:300;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('public/fonts/stanga/stanga-regular-aaa.woff2') format('woff2'),url('public/fonts/stanga/stanga-regular-aaa.woff') format('woff');font-weight:400;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('public/fonts/stanga/stanga-demibold-aaa.woff2') format('woff2'),url('public/fonts/stanga/stanga-demibold-aaa.woff') format('woff');font-weight:600;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('public/fonts/stanga/stanga-bold-aaa.woff2') format('woff2'),url('public/fonts/stanga/stanga-bold-aaa.woff') format('woff');font-weight:700;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('public/fonts/stanga/stanga-black-aaa.woff2') format('woff2'),url('public/fonts/stanga/stanga-black-aaa.woff') format('woff');font-weight:900;font-display:swap;}
+
+/* ================= TOKENS ================= */
+:root{
+  --navy-900:#122c49;
+  --navy-800:#15325e;
+  --navy-700:#1c3a63;
+  --navy-ink:#292951;
+  --blue-600:#036de3;
+  --blue-glow:#4fa3ff;
+  --bg-soft:#eaf2fa;
+  --bg-panel:#fafafa;
+  --bg-card:#fbfbfb;
+  --lime:#e6fe0b;
+  --lime-dim:#cfe600;
+  --white:#ffffff;
+  --ink-muted:#5b6b82;
+  --shadow-soft:0 10px 50px rgba(13,43,94,.10);
+  --shadow-card:0 0 30px rgba(18,44,73,.10);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --container:1440px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:'Ploni',system-ui,sans-serif;
+  background:var(--bg-soft);
+  color:var(--navy-900);
+  direction:rtl;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+h1,h2,h3,p{margin:0;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+.container{max-width:var(--container);margin:0 auto;padding-inline:clamp(20px,4vw,64px);}
+
+/* fluid type — vw-based with clamp guardrails (pure vw at 1920px baseline) */
+.fs-hero{font-size:clamp(2.6rem, 6.3vw, 5.4rem);}
+.fs-h2{font-size:clamp(1.9rem, 4.5vw, 4rem);}
+.fs-h2-lg{font-size:clamp(2.1rem, 6.3vw, 5.6rem);}
+.fs-h2-md{font-size:clamp(1.7rem, 3.4vw, 3rem);}
+.fs-stat{font-size:clamp(2.8rem, 8.3vw, 7.2rem);}
+.fs-body{font-size:clamp(1rem, 2vw, 1.35rem);}
+.fs-body-lg{font-size:clamp(1.05rem, 2.3vw, 1.55rem);}
+.fs-btn{font-size:clamp(.95rem, 2.05vw, 1.55rem);}
+.fs-nav{font-size:clamp(.85rem, 1.76vw, 1.15rem);}
+.fs-label{font-size:clamp(.85rem, 1.53vw, 1.05rem);}
+.fs-quote{font-size:clamp(1.7rem, 4.84vw, 3.4rem);}
+
+section{position:relative;}
+.reveal{opacity:0;transform:translateY(48px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-scale{opacity:0;transform:scale(.92);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+.reveal-scale.in{opacity:1;transform:scale(1);}
+.reveal-r{opacity:0;transform:translateX(60px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
+[dir="rtl"] .reveal-r{transform:translateX(-60px);}
+.reveal-r.in{opacity:1;transform:translateX(0);}
+.stagger > *{transition-delay:calc(var(--i,0) * 160ms);}
+
+/* ================= NAV ================= */
+.nav{
+  position:fixed;inset-inline:0;top:0;z-index:100;
+  padding-block:clamp(14px,1.8vw,22px);
+  transition:background .4s var(--ease),box-shadow .4s var(--ease),padding .4s var(--ease);
+}
+.nav.scrolled{background:rgba(18,44,73,.72);backdrop-filter:blur(14px) saturate(140%);box-shadow:0 8px 30px rgba(0,0,0,.15);padding-block:10px;}
+.nav .container{display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.nav-logo{width:clamp(108px,8.1vw,158px);flex-shrink:0;}
+.nav-logo img{width:100%;height:auto;}
+.nav-links{display:flex;align-items:center;gap:clamp(18px,2.8vw,50px);list-style:none;margin:0;padding:0;}
+.nav-links a{color:#fff;font-weight:400;font-size:var(--fs-nav);position:relative;padding-block:4px;white-space:nowrap;}
+.nav-links a::after{content:"";position:absolute;bottom:-2px;inset-inline:0;height:2px;background:var(--lime);transform:scaleX(0);transition:transform .35s var(--ease);transform-origin:center;}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-cta{
+  background:var(--lime);color:var(--navy-ink);font-weight:700;
+  padding:.65em 1.6em;border-radius:20px;font-size:clamp(.9rem,1.5vw,1.15rem);
+  box-shadow:0 5px 20px rgba(1,49,66,.18);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+  white-space:nowrap;
+}
+.nav-cta:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 28px rgba(1,49,66,.28);}
+.burger{display:none;width:30px;height:22px;position:relative;flex-shrink:0;}
+.burger span{position:absolute;inset-inline:0;height:2.5px;background:#fff;border-radius:2px;transition:all .3s var(--ease);}
+.burger span:nth-child(1){top:0;}
+.burger span:nth-child(2){top:9.5px;}
+.burger span:nth-child(3){top:19px;}
+.burger.open span:nth-child(1){transform:translateY(9.5px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-9.5px) rotate(-45deg);}
+.mobile-menu{position:fixed;inset:0;background:var(--navy-900);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transform:translateY(-100%);transition:transform .5s var(--ease);}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{color:#fff;font-size:1.6rem;}
+
+/* ================= HERO ================= */
+.hero{
+  position:relative;min-height:100dvh;display:flex;align-items:stretch;overflow:hidden;
+  background:linear-gradient(68deg,var(--navy-800) 14%,var(--blue-600) 104%);
+}
+.hero::before{
+  content:"";position:absolute;inset:-8%;background:url('public/images/hero-bg-texture.png') center/cover;
+  opacity:.22;filter:blur(10px);pointer-events:none;
+}
+/* NOTE: intentionally no max-height cap. Capping it independently of width was the actual
+   root cause of two different bugs (a big gap on wide-short windows, then a cropped photo
+   when the fix over-corrected) — both came from the row's height being inconsistent
+   relative to its width. Locking height purely to aspect-ratio makes every measurement
+   below it (photo width, gap, etc.) consistent on any window shape, at the cost of the hero
+   sometimes running a little taller than the viewport on unusually short windows — a much
+   safer trade-off than clipped or disproportionate content. */
+.hero-row{position:relative;z-index:2;width:80vw;aspect-ratio:1920/1083;margin:auto;}
+.hero-photo{position:absolute;left:0;bottom:0;height:88%;z-index:3;pointer-events:none;display:flex;align-items:flex-end;}
+.hero-photo img{height:100%;width:auto;max-width:none;display:block;filter:drop-shadow(0 30px 50px rgba(4,15,34,.4));transform:scale(1);transition:transform 1s var(--ease);}
+.hero:hover .hero-photo img{transform:scale(1.02);}
+.hero-copy{
+  direction:rtl;position:absolute;right:0;top:0;bottom:0;width:54%;z-index:2;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(20px,3vw,44px) clamp(20px,4vw,64px);
+}
+.hero-bubble{
+  position:relative;background:#fff;border-radius:clamp(28px,3.2vw,48px);
+  padding:clamp(22px,2.6vw,42px) clamp(26px,3vw,50px);box-shadow:0 25px 60px rgba(4,15,34,.35);
+  width:fit-content;max-width:96%;
+}
+.hero-bubble::after{
+  content:"";position:absolute;width:clamp(28px,3.4vw,46px);height:clamp(28px,3.4vw,46px);background:#fff;
+  bottom:clamp(-10px,-1vw,-14px);inset-inline-start:clamp(40px,5vw,70px);transform:rotate(45deg);
+  border-radius:0 0 0 10px;z-index:-1;
+}
+.hero-title{font-family:'Stanga';font-weight:900;color:var(--navy-ink);line-height:1.18;}
+.hero-title span{display:block;}
+.hero-title .hl{position:relative;display:inline-block;}
+.hero-title .hl::after{
+  content:"";position:absolute;inset-inline:2%;bottom:-.08em;height:.14em;background:var(--lime);
+  border-radius:4px;transform:scaleX(0);transform-origin:right;transition:transform .8s .5s var(--ease);
+}
+.hero-bubble.in .hl::after{transform:scaleX(1);}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:10px;background:var(--lime);color:var(--navy-ink);
+  font-family:'Ploni';font-weight:700;font-size:var(--fs-btn);margin-top:clamp(22px,3vw,34px);
+  padding:.6em 1.7em;border-radius:20px;box-shadow:0 8px 30px rgba(0,0,0,.25);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease);align-self:flex-end;
+}
+.hero-cta:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 16px 40px rgba(0,0,0,.35);}
+.hero-cta:active{transform:translateY(-1px) scale(.98);}
+.hero-wave{display:none;}
+@keyframes float-slow{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-18px) rotate(2deg);}}
+
+/* ================= STATS BAR ================= */
+.stats-wrap{position:relative;z-index:3;margin-top:clamp(-70px,-6vw,-40px);}
+.stats-card{
+  background:var(--bg-card);border-radius:clamp(24px,3vw,45px);box-shadow:var(--shadow-soft);
+  display:grid;grid-template-columns:repeat(3,1fr);
+  padding-block:clamp(20px,3.5vw,46px);max-width:1150px;margin-inline:auto;
+}
+.stat{text-align:center;padding-inline:10px;position:relative;}
+.stat + .stat::before{content:"";position:absolute;inset-inline-start:0;top:15%;bottom:15%;width:1px;background:rgba(18,44,73,.12);}
+.stat b{display:block;font-family:'Stanga';font-weight:900;color:var(--navy-900);font-size:clamp(2.8rem,8.3vw,5.8rem);line-height:1;}
+.stat span{display:block;margin-top:.5em;font-family:'Ploni';font-weight:700;font-size:clamp(1rem,2vw,1.5rem);color:var(--navy-900);}
+
+/* ================= GENERIC SECTION HELPERS ================= */
+.panel-bg{background:var(--bg-panel);}
+.section-pad{padding-block:clamp(70px,9vw,150px);}
+@media (max-width:980px){
+  .section-pad{padding-block:clamp(44px,8vw,70px);}
+}
+.eyebrow-pill{
+  display:inline-flex;align-items:center;background:var(--navy-900);color:var(--lime);
+  font-weight:700;font-size:.85rem;padding:.5em 1.3em;border-radius:20px;letter-spacing:.02em;
+}
+.underline-deco{display:block;width:min(26vw,300px);margin-block:.3em .4em;}
+[dir="rtl"] .underline-deco{margin-inline-start:auto;}
+
+/* ================= NEXT GEN (photo + copy) ================= */
+.next-gen .container{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center;direction:ltr;}
+.next-gen-copy{direction:rtl;}
+.next-gen-copy h2{font-family:'Stanga';font-weight:900;color:var(--navy-900);line-height:1.22;font-size:clamp(2.2rem,4.4vw,4.1rem);}
+.next-gen-copy h2 span{position:relative;display:inline-block;}
+.next-gen-copy h2 .ug::after{content:"";position:absolute;inset-inline:2%;bottom:-.1em;height:.11em;background:var(--lime);border-radius:4px;}
+.next-gen-copy p{font-family:'Ploni';font-weight:300;font-size:var(--fs-body-lg);line-height:1.55;color:var(--navy-ink);margin-top:clamp(20px,2.5vw,34px);}
+.next-gen-photo{position:relative;border-radius:clamp(24px,3vw,49px);overflow:hidden;aspect-ratio:667/647;box-shadow:0 24px 60px rgba(18,44,73,.22);}
+.next-gen-photo img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease);}
+.next-gen-photo:hover img{transform:scale(1.06);}
+
+/* ================= WHO FITS ================= */
+.who-fits{text-align:center;}
+.who-fits h2{font-family:'Stanga';font-weight:900;color:var(--navy-900);max-width:20ch;margin-inline:auto;line-height:1.2;}
+.pill-row{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,1.4vw,20px);margin-top:clamp(30px,4vw,56px);}
+.pill{
+  background:var(--lime);color:var(--navy-ink);font-family:'Ploni';font-weight:700;
+  font-size:clamp(.95rem,1.6vw,1.4rem);padding:.5em 1.4em;border-radius:20px;
+  box-shadow:0 5px 16px rgba(1,49,66,.12);transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+}
+.pill:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 14px 28px rgba(1,49,66,.22);}
+.cards-row{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,1.8vw,28px);margin-top:clamp(50px,6vw,90px);}
+.serv-card{
+  background:#fff;border-radius:clamp(20px,2.4vw,38px);box-shadow:var(--shadow-card);
+  padding:clamp(20px,2.6vw,40px) clamp(14px,1.8vw,26px);text-align:center;
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease);
+}
+.serv-card:hover{transform:translateY(-10px);box-shadow:0 20px 45px rgba(18,44,73,.18);}
+.serv-card .icon{width:clamp(50px,5vw,86px);height:clamp(50px,5vw,86px);margin-inline:auto;color:var(--navy-900);transition:transform .5s var(--ease);}
+.serv-card:hover .icon{transform:scale(1.15) rotate(-6deg);}
+.serv-card h3{font-family:'Ploni';font-weight:700;font-size:clamp(1.05rem,2vw,1.6rem);margin-top:.6em;color:var(--navy-900);}
+.serv-card p{font-family:'Ploni';font-weight:400;font-size:clamp(.85rem,1.5vw,1.1rem);margin-top:.4em;color:var(--ink-muted);}
+
+/* ================= CRISIS (illustration + card) ================= */
+.crisis-card{
+  position:relative;background:#fff;border-radius:clamp(24px,3vw,48px);box-shadow:0 20px 60px rgba(18,44,73,.12);
+  padding:clamp(14px,1.6vw,26px);display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(14px,1.6vw,26px);align-items:stretch;
+  direction:ltr; /* photo physically left, panel physically right — independent of page RTL */
+}
+.crisis-panel{direction:rtl;}
+.crisis-photo{position:relative;border-radius:clamp(18px,2.4vw,36px);overflow:hidden;min-height:clamp(280px,30vw,440px);}
+.crisis-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.crisis-doodle-heart{position:absolute;top:6%;left:6%;width:clamp(30px,3.6vw,54px);color:var(--lime);filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));animation:float-slow 6s ease-in-out infinite;}
+.crisis-doodle-arrow{position:absolute;top:16%;left:13%;width:clamp(46px,5vw,74px);color:var(--lime);filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));}
+.crisis-badge{
+  position:absolute;bottom:clamp(14px,2vw,26px);left:clamp(14px,2vw,26px);background:var(--navy-900);color:#fff;
+  border-radius:20px;padding:.8em 1.1em;box-shadow:0 12px 26px rgba(0,0,0,.3);min-width:132px;
+}
+.crisis-badge b{display:block;font-family:'Stanga';font-weight:900;color:var(--lime);font-size:clamp(1.6rem,2.6vw,2.3rem);line-height:1;}
+.crisis-badge span{display:block;font-family:'Ploni';font-weight:600;font-size:.72rem;line-height:1.35;margin-top:.5em;color:#e8ecf2;}
+.crisis-badge::after{content:"";display:block;width:34px;height:3px;background:var(--lime);border-radius:2px;margin-top:.5em;}
+.crisis-panel{position:relative;padding:clamp(20px,2.6vw,40px) clamp(16px,2vw,30px);display:flex;flex-direction:column;justify-content:center;}
+.crisis-pill{
+  align-self:flex-end;display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:var(--navy-ink);
+  font-family:'Ploni';font-weight:700;font-size:.85rem;padding:.5em 1.1em;border-radius:20px;
+}
+.crisis-pill svg{width:16px;height:16px;}
+.crisis-panel h2{font-family:'Stanga';font-weight:900;color:var(--navy-900);line-height:1.28;margin-top:.6em;text-align:right;}
+.crisis-rule{display:flex;align-items:center;gap:10px;margin-top:.5em;justify-content:flex-end;}
+.crisis-rule svg{flex-shrink:0;color:var(--lime);}
+.crisis-rule .squig{height:10px;width:clamp(90px,10vw,150px);}
+.crisis-rule svg:not(.squig){width:20px;height:20px;}
+.crisis-panel p{font-family:'Ploni';font-weight:300;font-size:var(--fs-body);line-height:1.75;margin-top:1em;color:var(--navy-ink);text-align:right;}
+@media (max-width:760px){
+  .crisis-card{grid-template-columns:1fr;}
+  .crisis-panel h2,.crisis-rule,.crisis-panel p{text-align:center;}
+  .crisis-rule{justify-content:center;}
+  .crisis-pill{align-self:center;}
+}
+
+/* ================= BREAKPOINT (photo left / light panel right) ================= */
+.breakpoint{overflow:hidden;}
+.breakpoint .frame-wrap{
+  position:relative;border-radius:clamp(24px,3vw,49px);overflow:hidden;background:#fff;
+  box-shadow:0 20px 60px rgba(18,44,73,.12);
+  display:grid;grid-template-columns:1fr 1fr;align-items:stretch;
+  direction:ltr; /* photo physically left, panel physically right */
+}
+.breakpoint .bp-photo{position:relative;min-height:clamp(280px,32vw,460px);}
+.breakpoint .bp-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.breakpoint .content{position:relative;z-index:2;padding:clamp(28px,4vw,60px);display:flex;flex-direction:column;justify-content:center;direction:rtl;}
+.breakpoint h2{font-family:'Stanga';font-weight:900;color:var(--navy-900);line-height:1.3;}
+.breakpoint h2 em{
+  font-style:normal;display:inline-block;background:var(--navy-900);color:var(--lime);
+  padding:.12em .36em;border-radius:8px;margin-top:.15em;
+}
+.breakpoint p{font-family:'Ploni';font-weight:300;font-size:var(--fs-body);line-height:1.7;color:var(--navy-ink);margin-top:1em;}
+@media (max-width:760px){
+  .breakpoint .frame-wrap{grid-template-columns:1fr;}
+  .breakpoint .bp-photo{min-height:260px;}
+}
+
+/* ================= IMPACT TWO-COLUMN ================= */
+.impact{text-align:center;}
+.impact > .container > .eyebrow-pill{}
+.impact h2{font-family:'Stanga';font-weight:900;color:var(--navy-900);margin-top:.5em;line-height:1.25;max-width:26ch;margin-inline:auto;}
+.impact-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,28px);margin-top:clamp(36px,4.5vw,60px);direction:ltr;}
+.impact-col{direction:rtl;text-align:start;}
+.impact-col{border-radius:clamp(22px,2.8vw,45px);padding:clamp(24px,3vw,44px);}
+.impact-col.blue{background:linear-gradient(160deg,var(--navy-800),var(--blue-600));color:#fff;}
+.impact-col.lime{background:var(--lime);color:var(--navy-ink);}
+.impact-col h3{font-family:'Ploni';font-weight:700;font-size:clamp(1.2rem,2.3vw,1.7rem);text-align:center;margin-bottom:.8em;}
+.impact-item{display:flex;gap:16px;align-items:flex-start;padding-block:clamp(12px,1.6vw,20px);border-top:1px solid rgba(255,255,255,.18);}
+.impact-col.lime .impact-item{border-top-color:rgba(18,44,73,.15);}
+.impact-item:first-of-type{border-top:none;}
+.impact-item .ic{width:clamp(28px,2.6vw,40px);height:clamp(28px,2.6vw,40px);flex-shrink:0;}
+.impact-item b{display:block;font-weight:700;font-size:clamp(.95rem,1.7vw,1.25rem);}
+.impact-item span{display:block;font-weight:300;font-size:clamp(.8rem,1.4vw,1rem);margin-top:.25em;opacity:.9;}
+
+/* ================= REGISTER FORM ================= */
+.register{overflow:hidden;background:var(--navy-900);}
+.register-wrap{position:relative;overflow:hidden;}
+.register-photo{position:absolute;inset-block:0;right:0;width:44%;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;background:var(--navy-900);}
+.register-photo img{width:100%;height:100%;object-fit:contain;object-position:bottom center;}
+.register-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(270deg,var(--navy-900) 0%,rgba(18,44,73,0) 22%);pointer-events:none;}
+.register-card{
+  position:relative;z-index:2;background:#fff;border-radius:clamp(20px,2.6vw,38px);
+  margin:clamp(16px,2.2vw,34px);margin-right:auto;max-width:640px;padding:clamp(24px,3vw,48px);
+}
+.register-card .eyebrow{font-size:clamp(.9rem,1.5vw,1.1rem);color:var(--ink-muted);}
+.register-card h2{font-family:'Stanga';font-weight:900;font-size:clamp(1.5rem,3.4vw,2.6rem);color:var(--navy-900);margin-top:.2em;line-height:1.25;}
+.register-card > p{font-family:'Ploni';font-weight:300;font-size:clamp(.9rem,1.5vw,1.05rem);color:var(--ink-muted);margin-top:.7em;line-height:1.5;}
+.trust-list{margin-top:clamp(18px,2vw,28px);display:flex;flex-direction:column;gap:14px;}
+.trust-list div{display:flex;align-items:center;gap:12px;font-weight:600;font-size:clamp(.85rem,1.4vw,1rem);}
+.trust-list svg{width:26px;height:26px;flex-shrink:0;color:var(--navy-800);}
+.reg-form{margin-top:clamp(20px,2.4vw,32px);display:flex;flex-direction:column;gap:12px;}
+.reg-form input,.reg-form textarea{
+  width:100%;border:1.5px solid #e3e8ee;border-radius:12px;padding:.9em 1.1em;font-family:'Ploni';
+  font-size:1rem;background:#fbfbfc;transition:border-color .3s,box-shadow .3s;
+}
+.reg-form input:focus,.reg-form textarea:focus{outline:none;border-color:var(--blue-600);box-shadow:0 0 0 4px rgba(3,109,227,.12);}
+.reg-form button{
+  margin-top:6px;background:var(--lime);color:var(--navy-ink);font-weight:700;font-size:clamp(1rem,1.8vw,1.2rem);
+  padding:.85em 1em;border-radius:14px;transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+  box-shadow:0 8px 22px rgba(1,49,66,.16);
+}
+.reg-form button:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(1,49,66,.24);}
+.reg-form small{color:#9aa5b2;font-size:.75rem;margin-top:4px;}
+
+/* ================= ABOUT FOUNDER ================= */
+.founder .container{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center;direction:ltr;}
+.founder-copy{direction:rtl;}
+.founder-copy .label{font-weight:600;font-size:clamp(.95rem,1.6vw,1.2rem);color:var(--ink-muted);}
+.founder-copy h2{font-family:'Stanga';font-weight:900;color:var(--navy-900);line-height:1.2;margin-top:.3em;}
+.founder-copy p{font-family:'Ploni';font-weight:300;font-size:var(--fs-body-lg);line-height:1.6;margin-top:1.1em;color:var(--navy-ink);}
+.founder-visual{position:relative;display:flex;justify-content:center;align-items:flex-end;padding-top:8%;isolation:isolate;}
+.founder-rings{position:absolute;inset-inline-end:2%;top:-6%;width:46%;aspect-ratio:1;border-radius:50%;border:2px solid rgba(18,44,73,.12);z-index:0;pointer-events:none;}
+.founder-rings::after{content:"";position:absolute;inset:14%;border-radius:50%;border:2px solid rgba(18,44,73,.10);}
+.founder-blob{position:absolute;width:82%;aspect-ratio:614/528;background:var(--lime);border-radius:clamp(40px,6vw,69px);z-index:1;bottom:0;}
+.founder-photo{position:relative;z-index:2;width:76%;display:block;}
+.founder-photo img{width:100%;display:block;filter:drop-shadow(0 20px 34px rgba(18,44,73,.28));transition:transform 1s var(--ease);}
+.founder-visual:hover .founder-photo img{transform:scale(1.04);}
+
+/* ================= FOOTER ================= */
+.footer{background:var(--navy-900);padding-block:clamp(20px,2.5vw,34px);}
+.footer .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.footer .flogo{width:clamp(100px,7vw,150px);}
+.footer p{color:#cfd8e3;font-size:clamp(.85rem,1.4vw,1.05rem);}
+
+/* ================= COUNTER helper ================= */
+[data-counter]{}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width:980px){
+  .nav-links{display:none;}
+  .burger{display:block;}
+  .next-gen .container,.founder .container{grid-template-columns:1fr;}
+  .hero-row{width:100%;aspect-ratio:auto;height:auto;min-height:0;max-height:none;display:flex;flex-direction:column;padding-top:clamp(90px,20vw,120px);}
+  .hero-photo{position:relative;left:auto;bottom:auto;height:44vh;width:100%;display:flex;justify-content:center;order:1;transform:none;}
+  .hero-photo img{width:auto;height:100%;}
+  .hero-copy{position:relative;right:auto;top:auto;bottom:auto;width:100%;order:2;padding:clamp(20px,5vw,32px) 20px clamp(44px,7vw,60px);transform:none;}
+  .hero-bubble{max-width:100%;}
+  .hero-cta{align-self:center;}
+  .cards-row{grid-template-columns:repeat(2,1fr);}
+  .impact-cols{grid-template-columns:1fr;}
+  .stats-card{grid-template-columns:1fr;gap:20px;}
+  .stat + .stat::before{display:none;}
+  .stat + .stat{border-top:1px solid rgba(18,44,73,.12);padding-top:20px;}
+  .register-photo{position:relative;inset:auto;width:100%;height:260px;order:-1;}
+  .register-wrap{display:flex;flex-direction:column;}
+  .register-card{margin:16px;max-width:none;}
+  .founder-visual{margin-top:40px;}
+}
+@media (max-width:620px){
+  .cards-row{grid-template-columns:1fr;}
+  .container{padding-inline:20px;}
+}
+</style>
+
+<!-- ============================================================= NAV ============================================================= -->
+<header class="nav" id="nav">
+  <div class="container">
+    <a href="#hero" class="nav-logo"><img src="public/svg/logo-white.svg" alt="שיעור מהחיים"></a>
+    <nav class="nav-links">
+      <a href="#founder">אודות המיזם</a>
+      <a href="#next-gen">איך זה עובד?</a>
+      <a href="#who-fits">למי זה מתאים?</a>
+      <a href="#impact">מה זה נותן?</a>
+      <a href="#register">שאלות נפוצות</a>
+      <a href="#register">צור קשר</a>
+    </nav>
+    <a href="#register" class="nav-cta">אני רוצה להצטרף</a>
+    <button class="burger" id="burger" aria-label="תפריט"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#founder">אודות המיזם</a>
+  <a href="#next-gen">איך זה עובד?</a>
+  <a href="#who-fits">למי זה מתאים?</a>
+  <a href="#impact">מה זה נותן?</a>
+  <a href="#register">שאלות נפוצות</a>
+  <a href="#register">צור קשר</a>
+  <a href="#register" class="nav-cta">אני רוצה להצטרף</a>
+</div>
+
+<!-- ============================================================= HERO ============================================================= -->
+<section class="hero" id="hero">
+  <div class="hero-row">
+    <div class="hero-photo reveal-scale" id="heroVisual">
+      <img src="public/images/hero-doctor-boy.png" alt="רופא מתנדב עם נער - שיעור מהחיים">
+    </div>
+    <div class="hero-copy">
+      <div class="hero-bubble reveal" id="heroCopy">
+        <h1 class="hero-title fs-hero">
+          <span>גם אם אתה לא מורה,</span>
+          <span>אתה יכול <span class="hl">להשפיע</span></span>
+          <span>על הדור הבא!</span>
+        </h1>
+      </div>
+      <a href="#register" class="hero-cta reveal" style="transition-delay:.3s">ספרו לי על המיזם</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= STATS ============================================================= -->
+<div class="stats-wrap container">
+  <div class="stats-card reveal" id="statsCard">
+    <div class="stat"><b data-counter data-to="100" data-suffix="%">0%</b><span>השפעה לדור הבא</span></div>
+    <div class="stat"><b data-counter data-to="10" data-prefix="2-" data-suffix="%">2-0%</b><span>מהזמן שלך</span></div>
+    <div class="stat"><b data-counter data-to="40" data-suffix="%">0%</b><span>חוסר במורים</span></div>
+  </div>
+</div>
+
+<!-- ============================================================= NEXT GEN ============================================================= -->
+<section class="next-gen section-pad" id="next-gen">
+  <div class="container">
+    <div class="next-gen-copy reveal">
+      <h2>הדור הבא צריך ללמוד<br><span class="ug">מאנשים כמוך!</span></h2>
+      <p>בעידן שבו יש חוסר עצום במחנכים ומורים, ובתי ספר רבים פועלים עם פער של 40% ויותר - הגיע הזמן שלך להצטרף למהפכה. שעה בשבוע. מהתחום שלך. מהחיים האמיתיים.</p>
+      <p>אנשי קהילה אמיתיים שמקדישים 2% עד 10% מהזמן שלהם, ומביאים את הניסיון, המקצוע והשליחות שלהם אל תוך הכיתה - כדי לעזור לדור הבא לגדול עם דמויות אמיתיות מהחיים.</p>
+    </div>
+    <div class="next-gen-photo reveal-r">
+      <img src="public/images/mentor-teens.png" alt="מנטור עם בני נוער">
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= WHO FITS + SERVICE CARDS + CRISIS + BREAKPOINT (shared gray panel) ============================================================= -->
+<div class="panel-bg">
+  <section class="who-fits section-pad" id="who-fits">
+    <div class="container">
+      <h2 class="fs-h2-lg reveal">לכל מי שרוצה להיות חלק ומרגיש שיש לו מה לתת</h2>
+      <div class="pill-row stagger" id="pillRow">
+        <span class="pill reveal-scale" style="--i:0">עורכי דין</span>
+        <span class="pill reveal-scale" style="--i:1">מהנדס</span>
+        <span class="pill reveal-scale" style="--i:2">חקלאי</span>
+        <span class="pill reveal-scale" style="--i:3">מוזיקאי</span>
+        <span class="pill reveal-scale" style="--i:4">איש קבע</span>
+        <span class="pill reveal-scale" style="--i:5">סטודנט</span>
+        <span class="pill reveal-scale" style="--i:6">יזמות</span>
+        <span class="pill reveal-scale" style="--i:7">ועוד..</span>
+      </div>
+      <div class="cards-row stagger" id="cardsRow">
+        <div class="serv-card reveal" style="--i:0">
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="15" width="30" height="22" rx="3"/><path d="M9 19l15 11 15-11"/><path d="M17 15V10a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5"/></svg>
+          <h3>תגמול הולם</h3><p>בלי לאבד את תחושת השליחות</p>
+        </div>
+        <div class="serv-card reveal" style="--i:1">
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 12c6-4 12-4 18 0v24c-6-4-12-4-18 0z"/><path d="M42 12c-6-4-12-4-18 0v24c6-4 12-4 18 0z"/></svg>
+          <h3>כל תחום</h3><p>הנדסה, עסקים, חקלאות, ביטחון, יהדות</p>
+        </div>
+        <div class="serv-card reveal" style="--i:2">
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="15" r="7"/><path d="M9 40c2-9 8-13 15-13s13 4 15 13"/></svg>
+          <h3>אנחנו מכשירים</h3><p>לא צריך רקע בהוראה</p>
+        </div>
+        <div class="serv-card reveal" style="--i:3">
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="9" width="34" height="32" rx="4"/><path d="M7 18h34"/><path d="M15 5v8M33 5v8"/></svg>
+          <h3>שעה בשבוע</h3><p>כל אחד לפי היכולת שלו</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="crisis section-pad" id="crisis">
+    <div class="container">
+      <div class="crisis-card reveal">
+        <div class="crisis-photo">
+          <img src="public/images/crisis-illustration-2.jpg" alt="דור הבא צומח מתוך נקודת שבר">
+          <div class="crisis-badge">
+            <b>40%</b>
+            <span>פערים של עשרות<br>אחוזים במערכת</span>
+          </div>
+        </div>
+        <div class="crisis-panel">
+          <span class="crisis-pill">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>
+            המציאות היום
+          </span>
+          <h2 class="fs-h2-md">עולם החינוך נמצא בנקודת שבר</h2>
+          <p>פחות ופחות אנשים בוחרים במקצוע ההוראה, ותחום החינוך מתמודד עם חוסר מורים חמור. בתי ספר רבים ברחבי הארץ, כולל בגוש עציון, פועלים עם פערים של עשרות אחוזים. הילדים זקוקים לדמויות חינוכיות אמיתיות, והדלת נפתחת לאנשים שיביאו איתם את השליחות שלהם מהחיים עצמם.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="breakpoint section-pad" id="breakpoint">
+    <div class="container">
+      <div class="frame-wrap reveal-scale">
+        <div class="bp-photo"><img src="public/images/classroom-bg.png" alt="כיתה"></div>
+        <div class="content">
+          <h2 class="fs-h2">אבל בנקודות שבר<br><em>נולדות מהפכות</em></h2>
+          <p>המהפכה היא לא רעיון תיאורטי - היא קורה עכשיו. אנשי קהילה מכל תחומי החיים מקדישים חלק מזמנם ומגיעים לכיתות כדי להעשיר את עולמם של הילדים. מהנדסים, חקלאים, יזמים, אנשי ביטחון, אמנים ואנשי תוכן - כולם מביאים איתם את הניסיון, התשוקה והידע שלהם, ומשאירים חותם שלא נמחק.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= IMPACT TWO-COLUMN ============================================================= -->
+  <section class="impact section-pad" id="impact">
+    <div class="container">
+      <span class="eyebrow-pill reveal">מה יוצא מזה</span>
+      <h2 class="fs-h2 reveal">זה משנה אותך. וזה משנה אותם.</h2>
+      <div class="impact-cols">
+        <div class="impact-col blue reveal-r">
+          <h3>מה זה נותן לך</h3>
+          <div class="impact-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7-4.5-9.5-9C.7 7.6 2.4 4 6 4c2 0 3.5 1.2 4.3 2.6.4.6 1 .6 1.4 0C12.5 5.2 14 4 16 4c3.6 0 5.3 3.6 3.5 7-2.5 4.5-9.5 9-9.5 9z"/></svg>
+            <div><b>מזון לנשמה</b><span>להרגיש שאתה עושה משהו בעל ערך</span></div></div>
+          <div class="impact-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6z"/></svg>
+            <div><b>להגשים חלום ישן</b><span>תמיד רצית ללמד? הנה ההזדמנות שלך</span></div></div>
+          <div class="impact-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M3 13h18"/><path d="M12 9v12"/><path d="M8 9a2.5 2.5 0 1 1 0-5c1.8 0 4 3 4 5m0 0c0-2 2.2-5 4-5a2.5 2.5 0 1 1 0 5"/></svg>
+            <div><b>תגמול הולם והכשרה מלאה</b><span>מקבלים שכר ומלווים אתכם בצעדים הראשונים</span></div></div>
+          <div class="impact-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c.5-4 3-6 6-6s5.5 2 6 6"/><path d="M14.5 14.3c2.3.4 4 2.2 4.5 5.7"/></svg>
+            <div><b>להיות חלק ממשהו גדול</b><span>מהפכה אזורית בחינוך - ואתה חלק ממנה</span></div></div>
+        </div>
+        <div class="impact-col lime reveal-r" style="transition-delay:.1s">
+          <h3>מה זה נותן לתלמידים</h3>
+          <div class="impact-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.5 3.6-7 8-7s8 2.5 8 7"/><path d="M19 4l1.3 1.3L23 3"/></svg>
+            <div><b>פוגשים דמויות מעצבות</b><span>אנשים אמיתיים שמשפיעים בזכות מי שהם</span></div></div>
+          <div class="impact-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 6c-2-1.3-5-1.7-9-1v14c4-.7 7-.3 9 1 2-1.3 5-1.7 9-1V5c-4-.7-7-.3-9 1z"/><path d="M12 6v14"/></svg>
+            <div><b>לומדים תוכן לימודי רלוונטי</b><span>החומר מתחבר למציאות שלהם</span></div></div>
+          <div class="impact-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7-4.5-9.5-9C.7 7.6 2.4 4 6 4c2 0 3.5 1.2 4.3 2.6.4.6 1 .6 1.4 0C12.5 5.2 14 4 16 4c3.6 0 5.3 3.6 3.5 7-2.5 4.5-9.5 9-9.5 9z"/></svg>
+            <div><b>מקבלים תשומת לב, לא רק חומר</b><span>מעורבות אמיתית ונוכחות מעצימה</span></div></div>
+          <div class="impact-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c.5-4 3-6 6-6s5.5 2 6 6"/><path d="M14.5 14.3c2.3.4 4 2.2 4.5 5.7"/></svg>
+            <div><b>גדלים בקהילה שאכפת לה</b><span>חיבור שכובש בין ערכים לבני אדם</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= REGISTER FORM ============================================================= -->
+  <section class="register section-pad" id="register">
+    <div class="container">
+      <div class="register-wrap reveal">
+        <div class="register-photo"><img src="public/images/lawyer-boy.png" alt="מנטור עם נער"></div>
+        <div class="register-card">
+          <div class="eyebrow">רוצים להיות חלק מהמהפכה?</div>
+          <h2>לבירורים ופגישת היכרות - הירשמו.</h2>
+          <p>השאירו פרטים ונחזור אליכם כדי לקבוע פגישת היכרות שתתאים לכם אישית או קבוצתית, על התפקיד שלכם בה וההכשרה.</p>
+          <form class="reg-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='תודה! נחזור אליכם בקרוב 🌱';">
+            <input type="text" placeholder="שם מלא" required>
+            <input type="tel" placeholder="טלפון*" required>
+            <input type="email" placeholder="אימייל">
+            <input type="text" placeholder="התחום שלך / מה היית רוצה ללמד">
+            <textarea rows="2" placeholder="ספרו לנו קצת על עצמכם (אופציונלי)"></textarea>
+            <button type="submit">אשמח לשמוע פרטים על המיזם</button>
+            <small>בהרשמה אני מאשר/ת קבלת פרטים ומסכימ/ה לתנאי השימוש ומדיניות הפרטיות</small>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= ABOUT FOUNDER ============================================================= -->
+  <section class="founder section-pad" id="founder">
+    <div class="container">
+      <div class="founder-copy reveal">
+        <div class="label">מי עומד מאחורי המיזם?</div>
+        <h2 class="fs-quote">איש חינוך. איש שטח. איש חזון.</h2>
+        <p>רענן, מנהל בית הספר חמ"ד כרמי יהודה בגוש עציון, רואה כל יום מקרוב את המשבר במערכת החינוך - ובמקום לקבל אותו כגזירה, בחר להוביל אחרת.</p>
+        <p>לצד תפקידו בחינוך הוא משרת כמפקד במילואים. שני העולמות האלה - שדה הקרב והכיתה - לימדו אותו אותו דבר: שמהפכות אמיתיות לא נולדות מלמעלה, אלא מאנשים שמחליטים להתגייס.</p>
+        <p>המיזם של מנטורים חינוכיים מהחיים הוא הניסיון שלו לחבר את הקהילה לבית הספר, לפני שיהיה מאוחר מדי.</p>
+      </div>
+      <div class="founder-visual reveal-r">
+        <div class="founder-rings"></div>
+        <div class="founder-blob"></div>
+        <div class="founder-photo"><img src="public/images/ranan.png" alt="רענן, מייסד שיעור מהחיים"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================= FOOTER ============================================================= -->
+<footer class="footer">
+  <div class="container">
+    <img class="flogo" src="public/svg/logo-white.svg" alt="שיעור מהחיים">
+    <p>עיצוב ופיתוח: שיעור מהחיים © 2026</p>
+  </div>
+</footer>
+
+<script>
+// scroll reveal
+// trigger the fade-in EARLY (positive bottom margin expands the zone upward past the
+// viewport edge) so content has finished animating in by the time it's actually scrolled
+// into view, instead of still fading while the user is looking at it — this was the real
+// cause of the "empty gap while scrolling" reports, not the section padding itself.
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.01, rootMargin:"0px 0px 15% 0px"});
+document.querySelectorAll('.reveal,.reveal-scale,.reveal-r').forEach(el=>io.observe(el));
+
+// nav scroll state
+const nav = document.getElementById('nav');
+addEventListener('scroll', ()=>{ nav.classList.toggle('scrolled', scrollY > 40); }, {passive:true});
+
+// burger menu
+const burger = document.getElementById('burger');
+const menu = document.getElementById('mobileMenu');
+burger.addEventListener('click', ()=>{ burger.classList.toggle('open'); menu.classList.toggle('open'); });
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{ burger.classList.remove('open'); menu.classList.remove('open'); }));
+
+// counters
+const counters = document.querySelectorAll('[data-counter]');
+const cIo = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el = e.target, to = +el.dataset.to, pre = el.dataset.prefix||'', suf = el.dataset.suffix||'';
+    let start = null, dur = 1400;
+    function step(ts){
+      if(!start) start = ts;
+      const p = Math.min((ts-start)/dur, 1);
+      const eased = 1 - Math.pow(1-p, 3);
+      el.textContent = pre + Math.round(eased*to) + suf;
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+    cIo.unobserve(el);
+  });
+},{threshold:.6});
+counters.forEach(c=>cIo.observe(c));
+
+// hero parallax on scroll
+addEventListener('scroll', ()=>{
+  const y = scrollY;
+  const wave = document.querySelector('.hero-wave');
+  if(wave && y < innerHeight) wave.style.transform = `translateY(${y*0.15}px)`;
+},{passive:true});
+</script>
+<script src="visual-editor.js"></script>
