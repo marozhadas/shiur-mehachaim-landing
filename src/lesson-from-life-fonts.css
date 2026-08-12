@@ -1,0 +1,46 @@
+/* ============================================================================
+   שיעור מהחיים — local fonts + design tokens + custom animation keyframes
+   Add this file to the Lovable project (e.g. src/styles/lesson-from-life-fonts.css)
+   and import it once from src/index.css:  @import "./styles/lesson-from-life-fonts.css";
+   Copy the referenced font files into /public/fonts/... and images into /public/images
+   and /public/svg exactly as provided in this handoff (see README-lovable-handoff.md).
+   ============================================================================ */
+
+@font-face{font-family:'Ploni';src:url('/fonts/ploni/ploni-ultralight-aaa.woff2') format('woff2'),url('/fonts/ploni/ploni-ultralight-aaa.woff') format('woff');font-weight:200;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('/fonts/ploni/ploni-light-aaa.woff2') format('woff2'),url('/fonts/ploni/ploni-light-aaa.woff') format('woff');font-weight:300;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('/fonts/ploni/ploni-regular-aaa.woff2') format('woff2'),url('/fonts/ploni/ploni-regular-aaa.woff') format('woff');font-weight:400;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('/fonts/ploni/ploni-medium-aaa.woff2') format('woff2'),url('/fonts/ploni/ploni-medium-aaa.woff') format('woff');font-weight:500;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('/fonts/ploni/ploni-demibold-aaa.woff2') format('woff2'),url('/fonts/ploni/ploni-demibold-aaa.woff') format('woff');font-weight:600;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('/fonts/ploni/ploni-bold-aaa.woff2') format('woff2'),url('/fonts/ploni/ploni-bold-aaa.woff') format('woff');font-weight:700;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('/fonts/ploni/ploni-ultrabold-aaa.woff2') format('woff2'),url('/fonts/ploni/ploni-ultrabold-aaa.woff') format('woff');font-weight:800;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('/fonts/ploni/ploni-black-aaa.woff2') format('woff2'),url('/fonts/ploni/ploni-black-aaa.woff') format('woff');font-weight:900;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('/fonts/stanga/stanga-ultralight-aaa.woff2') format('woff2'),url('/fonts/stanga/stanga-ultralight-aaa.woff') format('woff');font-weight:200;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('/fonts/stanga/stanga-light-aaa.woff2') format('woff2'),url('/fonts/stanga/stanga-light-aaa.woff') format('woff');font-weight:300;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('/fonts/stanga/stanga-regular-aaa.woff2') format('woff2'),url('/fonts/stanga/stanga-regular-aaa.woff') format('woff');font-weight:400;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('/fonts/stanga/stanga-demibold-aaa.woff2') format('woff2'),url('/fonts/stanga/stanga-demibold-aaa.woff') format('woff');font-weight:600;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('/fonts/stanga/stanga-bold-aaa.woff2') format('woff2'),url('/fonts/stanga/stanga-bold-aaa.woff') format('woff');font-weight:700;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('/fonts/stanga/stanga-black-aaa.woff2') format('woff2'),url('/fonts/stanga/stanga-black-aaa.woff') format('woff');font-weight:900;font-display:swap;}
+
+:root{
+  /* brand tokens as HSL triplets (no hsl() wrapper) so they compose with Tailwind's hsl(var(--x)) pattern */
+  --lfl-navy-900: 209 57% 18%;   /* #122c49 */
+  --lfl-navy-800: 213 57% 24%;   /* #15325e */
+  --lfl-navy-ink: 240 26% 24%;   /* #292951 */
+  --lfl-blue-600: 211 97% 45%;   /* #036de3 */
+  --lfl-bg-soft:  208 55% 95%;   /* #eaf2fa */
+  --lfl-bg-panel: 0 0% 98%;      /* #fafafa */
+  --lfl-lime:     69 99% 51%;    /* #e6fe0b */
+}
+
+.font-stanga{ font-family:'Stanga', system-ui, sans-serif; }
+.font-ploni{ font-family:'Ploni', system-ui, sans-serif; }
+
+@keyframes lfl-float-slow{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-18px) rotate(2deg);}}
+.lfl-animate-float{ animation: lfl-float-slow 9s ease-in-out infinite; }
+
+.lfl-reveal{opacity:0;transform:translateY(48px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.lfl-reveal.in{opacity:1;transform:translateY(0);}
+.lfl-reveal-scale{opacity:0;transform:scale(.92);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.lfl-reveal-scale.in{opacity:1;transform:scale(1);}
+.lfl-reveal-r{opacity:0;transform:translateX(-60px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.lfl-reveal-r.in{opacity:1;transform:translateX(0);}

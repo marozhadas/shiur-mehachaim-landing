@@ -1,0 +1,134 @@
+/* ============================================================================
+   Floating Visual Editor — chrome styles (RTL-native)
+   MVP scope: see visual-editor.js header comment for architecture notes.
+   ============================================================================ */
+:root{
+  --ve-navy:#122c49; --ve-lime:#e6fe0b; --ve-panel-w:340px; --ve-topbar-h:52px;
+}
+.ve-hidden{display:none!important;}
+
+/* ---------- admin unlock button (always present, unobtrusive) ---------- */
+#ve-unlock-btn{
+  position:fixed;bottom:18px;left:18px;z-index:99998;background:var(--ve-navy);color:#fff;
+  border-radius:999px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.3);cursor:pointer;font-size:20px;border:none;
+}
+#ve-unlock-btn:hover{transform:scale(1.06);}
+
+/* ---------- top bar ---------- */
+#ve-topbar{
+  position:fixed;inset-inline:0;top:0;height:var(--ve-topbar-h);z-index:99990;background:var(--ve-navy);
+  color:#fff;display:flex;align-items:center;justify-content:space-between;padding-inline:16px;
+  font-family:system-ui,sans-serif;direction:rtl;box-shadow:0 2px 10px rgba(0,0,0,.25);
+}
+#ve-topbar .ve-group{display:flex;align-items:center;gap:8px;}
+#ve-topbar button{
+  background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15);
+  border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;font-family:inherit;
+  display:flex;align-items:center;gap:6px;transition:background .2s;
+}
+#ve-topbar button:hover{background:rgba(255,255,255,.18);}
+#ve-topbar button.ve-active{background:var(--ve-lime);color:var(--ve-navy);border-color:var(--ve-lime);font-weight:700;}
+#ve-topbar button:disabled{opacity:.35;cursor:not-allowed;}
+#ve-status{font-size:12px;color:#cfe2ff;min-width:110px;text-align:center;}
+#ve-status.ve-dirty{color:var(--ve-lime);}
+#ve-status.ve-saved{color:#8ef58e;}
+
+/* body offset when editor topbar is showing */
+body.ve-mode-on{padding-top:var(--ve-topbar-h);}
+body.ve-mode-on .nav{top:var(--ve-topbar-h);}
+
+/* device-preview frame */
+#ve-frame-wrap{transition:max-width .35s ease, margin .35s ease;margin-inline:auto;}
+body.ve-device-tablet #ve-frame-wrap{max-width:768px;box-shadow:0 0 0 2px #ccc, 0 20px 60px rgba(0,0,0,.25);}
+body.ve-device-mobile #ve-frame-wrap{max-width:390px;box-shadow:0 0 0 2px #ccc, 0 20px 60px rgba(0,0,0,.25);}
+
+/* ---------- selectable element affordances ---------- */
+body.ve-mode-on [data-editable-id]{cursor:pointer;}
+/* some elements (e.g. the hero cutout photo) intentionally use pointer-events:none
+   in normal browsing so clicks pass through to whatever they overlap — but that
+   also makes them unselectable in the editor, so force it back on in edit mode. */
+body.ve-mode-on [data-editable-id]{pointer-events:auto!important;}
+.ve-hover-outline{
+  position:fixed;pointer-events:none;z-index:99980;border:2px dashed var(--ve-lime);
+  background:rgba(230,254,11,.08);border-radius:4px;transition:all .06s linear;
+}
+.ve-select-outline{
+  position:fixed;pointer-events:none;z-index:99981;border:2px solid var(--ve-navy);
+  border-radius:4px;box-shadow:0 0 0 3px rgba(18,44,73,.25);
+}
+.ve-mini-toolbar{
+  position:fixed;z-index:99982;background:var(--ve-navy);border-radius:8px;display:flex;
+  box-shadow:0 6px 18px rgba(0,0,0,.3);overflow:hidden;direction:rtl;
+}
+.ve-mini-toolbar button{
+  background:none;border:none;color:#fff;padding:7px 9px;cursor:pointer;font-size:14px;
+  border-inline-start:1px solid rgba(255,255,255,.15);
+}
+.ve-mini-toolbar button:first-child{border-inline-start:none;}
+.ve-mini-toolbar button:hover{background:rgba(255,255,255,.15);}
+
+[data-ve-editing="true"]{outline:2px solid var(--ve-lime)!important;outline-offset:2px;}
+
+/* ---------- side panel ---------- */
+#ve-panel{
+  position:fixed;top:var(--ve-topbar-h);bottom:0;left:0;width:var(--ve-panel-w);z-index:99985;
+  background:#fff;border-inline-end:1px solid #e3e8ee;box-shadow:6px 0 24px rgba(0,0,0,.12);
+  direction:rtl;font-family:system-ui,sans-serif;overflow-y:auto;transform:translateX(-100%);
+  transition:transform .3s ease;padding:18px;
+}
+#ve-panel.ve-open{transform:translateX(0);}
+#ve-panel h4{margin:0 0 4px;font-size:11px;letter-spacing:.03em;color:#8a97a8;text-transform:uppercase;font-weight:700;}
+#ve-panel .ve-elid{font-size:11px;color:#b8c1cc;margin-bottom:14px;font-family:monospace;}
+.ve-field{margin-bottom:16px;}
+.ve-field label{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:600;color:#3a4658;margin-bottom:6px;}
+.ve-field label .ve-reset{font-size:11px;font-weight:400;color:#9aa5b2;cursor:pointer;text-decoration:underline;}
+.ve-field label .ve-reset:hover{color:var(--ve-navy);}
+.ve-row{display:flex;gap:8px;align-items:center;}
+.ve-row input[type=range]{flex:1;accent-color:var(--ve-navy);}
+.ve-row input[type=number]{width:58px;padding:5px 6px;border:1px solid #dde3ea;border-radius:6px;font-size:12.5px;}
+.ve-row select{flex:1;padding:6px;border:1px solid #dde3ea;border-radius:6px;font-size:12.5px;}
+.ve-unit-toggle{display:flex;gap:3px;}
+.ve-unit-toggle button{
+  font-size:10.5px;padding:3px 6px;border:1px solid #dde3ea;background:#f7f9fb;border-radius:5px;cursor:pointer;
+}
+.ve-unit-toggle button.ve-active{background:var(--ve-navy);color:#fff;border-color:var(--ve-navy);}
+.ve-color-row{display:flex;align-items:center;gap:8px;}
+.ve-color-row input[type=color]{width:34px;height:34px;border:1px solid #dde3ea;border-radius:8px;padding:2px;cursor:pointer;}
+.ve-color-row input[type=text]{flex:1;padding:6px 8px;border:1px solid #dde3ea;border-radius:6px;font-size:12px;font-family:monospace;}
+.ve-swatches{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.ve-swatch{width:24px;height:24px;border-radius:6px;cursor:pointer;border:2px solid #fff;box-shadow:0 0 0 1px #dde3ea;}
+.ve-swatch:hover{box-shadow:0 0 0 2px var(--ve-navy);}
+.ve-spacing-box{border:1px dashed #dde3ea;border-radius:8px;padding:10px;position:relative;}
+.ve-spacing-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ve-link-btn{
+  display:flex;align-items:center;gap:5px;font-size:11px;color:#5b6b82;cursor:pointer;margin-bottom:8px;
+  background:#f2f5f8;border:1px solid #dde3ea;border-radius:6px;padding:4px 8px;width:fit-content;
+}
+.ve-link-btn.ve-linked{background:var(--ve-navy);color:#fff;border-color:var(--ve-navy);}
+.ve-visibility-row{display:flex;gap:10px;}
+.ve-visibility-row label{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:400;flex:1;justify-content:center;
+  background:#f7f9fb;border:1px solid #dde3ea;border-radius:6px;padding:6px 4px;cursor:pointer;}
+.ve-visibility-row input{accent-color:var(--ve-navy);}
+#ve-panel textarea{width:100%;min-height:70px;padding:8px;border:1px solid #dde3ea;border-radius:8px;font-family:inherit;font-size:13px;resize:vertical;}
+.ve-hint{font-size:11px;color:#9aa5b2;line-height:1.5;margin-top:2px;}
+.ve-section-divider{border:none;border-top:1px solid #eef1f5;margin:18px 0;}
+.ve-danger{color:#c62828;}
+.ve-empty-panel{padding:40px 10px;text-align:center;color:#9aa5b2;font-size:13px;line-height:1.7;}
+
+/* passcode modal */
+#ve-modal-backdrop{position:fixed;inset:0;background:rgba(10,20,35,.55);z-index:99999;display:flex;align-items:center;justify-content:center;}
+#ve-modal{background:#fff;border-radius:16px;padding:26px;width:300px;direction:rtl;font-family:system-ui,sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.4);}
+#ve-modal h3{margin:0 0 10px;font-size:16px;color:var(--ve-navy);}
+#ve-modal p{margin:0 0 14px;font-size:12.5px;color:#5b6b82;line-height:1.6;}
+#ve-modal input{width:100%;padding:9px 10px;border:1px solid #dde3ea;border-radius:8px;font-size:14px;margin-bottom:12px;box-sizing:border-box;}
+#ve-modal .ve-modal-actions{display:flex;gap:8px;}
+#ve-modal button{flex:1;padding:9px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;}
+#ve-modal .ve-btn-primary{background:var(--ve-navy);color:#fff;}
+#ve-modal .ve-btn-secondary{background:#f2f5f8;color:#3a4658;}
+#ve-modal-error{color:#c62828;font-size:12px;margin:-6px 0 10px;display:none;}
+
+@media (max-width:820px){
+  :root{--ve-panel-w:280px;}
+  #ve-status{display:none;}
+}
