@@ -302,12 +302,24 @@ section{position:relative;}
 .impact-item b{display:block;font-weight:700;font-size:clamp(.95rem,1.7vw,1.25rem);}
 .impact-item span{display:block;font-weight:300;font-size:clamp(.8rem,1.4vw,1rem);margin-top:.25em;opacity:.9;}
 
+/* ================= FAQ ================= */
+.faq{text-align:center;}
+.faq h2{margin-top:.5em;line-height:1.25;}
+.faq-list{margin-top:clamp(36px,4.5vw,60px);display:flex;flex-direction:column;gap:clamp(12px,1.6vw,18px);text-align:right;}
+.faq-item{background:#fff;border-radius:clamp(18px,2.2vw,32px);box-shadow:var(--shadow-card);padding:clamp(20px,2.6vw,34px) clamp(20px,3vw,40px);transition:transform .35s var(--ease),box-shadow .35s var(--ease);}
+.faq-item:hover{transform:translateY(-4px);box-shadow:0 20px 45px rgba(18,44,73,.16);}
+.faq-item h3{font-family:'Ploni';font-weight:700;font-size:clamp(1.05rem,1.9vw,1.35rem);color:var(--navy-900);}
+.faq-item p{font-family:'Ploni';font-weight:300;font-size:var(--fs-body);line-height:1.7;color:var(--ink-muted);margin-top:.6em;}
+
 /* ================= REGISTER FORM ================= */
 .register{overflow:hidden;background:var(--navy-900);}
-.register-wrap{position:relative;overflow:hidden;}
-.register-photo{position:absolute;inset-block:0;right:0;width:44%;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;background:var(--navy-900);}
+.register-wrap{position:relative;}
+/* photo is positioned against the SECTION (not .register-wrap, which is only as tall as
+   the card) so it can sit flush against the section's true top/bottom edges instead of
+   floating inside the card's own padding — this is also what makes it bigger, since the
+   box now spans the section's full height instead of just matching the card. */
+.register-photo{position:absolute;top:0;bottom:0;right:0;width:min(52%,720px);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;background:var(--navy-900);}
 .register-photo img{width:100%;height:100%;object-fit:contain;object-position:bottom center;}
-.register-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(270deg,var(--navy-900) 0%,rgba(18,44,73,0) 22%);pointer-events:none;}
 .register-card{
   position:relative;z-index:2;background:#fff;border-radius:clamp(20px,2.6vw,38px);
   margin:clamp(16px,2.2vw,34px);margin-right:auto;max-width:640px;padding:clamp(24px,3vw,48px);
@@ -406,24 +418,22 @@ section{position:relative;}
   <div class="container">
     <a href="#hero" class="nav-logo"><img src="public/svg/logo-white.svg" alt="שיעור מהחיים"></a>
     <nav class="nav-links">
-      <a href="#founder">אודות המיזם</a>
-      <a href="#next-gen">איך זה עובד?</a>
+      <a href="#next-gen">אודות המיזם</a>
       <a href="#who-fits">למי זה מתאים?</a>
       <a href="#impact">מה זה נותן?</a>
-      <a href="#register">שאלות נפוצות</a>
-      <a href="#register">צור קשר</a>
+      <a href="#faq">שאלות נפוצות</a>
+      <a href="#founder">מי עומד מאחורי?</a>
     </nav>
     <a href="#register" class="nav-cta">אני רוצה להצטרף</a>
     <button class="burger" id="burger" aria-label="תפריט"><span></span><span></span><span></span></button>
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#founder">אודות המיזם</a>
-  <a href="#next-gen">איך זה עובד?</a>
+  <a href="#next-gen">אודות המיזם</a>
   <a href="#who-fits">למי זה מתאים?</a>
   <a href="#impact">מה זה נותן?</a>
-  <a href="#register">שאלות נפוצות</a>
-  <a href="#register">צור קשר</a>
+  <a href="#faq">שאלות נפוצות</a>
+  <a href="#founder">מי עומד מאחורי?</a>
   <a href="#register" class="nav-cta">אני רוצה להצטרף</a>
 </div>
 
@@ -566,6 +576,36 @@ section{position:relative;}
             <div><b>מקבלים תשומת לב, לא רק חומר</b><span>מעורבות אמיתית ונוכחות מעצימה</span></div></div>
           <div class="impact-item"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c.5-4 3-6 6-6s5.5 2 6 6"/><path d="M14.5 14.3c2.3.4 4 2.2 4.5 5.7"/></svg>
             <div><b>גדלים בקהילה שאכפת לה</b><span>חיבור שכובש בין ערכים לבני אדם</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= FAQ ============================================================= -->
+  <section class="faq section-pad" id="faq">
+    <div class="container">
+      <span class="eyebrow-pill reveal">שאלות ותשובות</span>
+      <h2 class="fs-h2 reveal">כל מה שרציתם לדעת</h2>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <h3>כמה זמן זה דורש ממני?</h3>
+          <p>בממוצע שעה בשבוע, בהתאם ללוח הזמנים שלך ושל בית הספר. יש מלווים שמגיעים פעם בשבוע קבוע, ויש שמעדיפים מסגרת גמישה יותר - מתאימים את זה יחד.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>האם אני צריך רקע בהוראה?</h3>
+          <p>לא. אתם מביאים את הניסיון והמקצוע שלכם מהחיים - את החלק הפדגוגי אנחנו מכשירים ומלווים אתכם בו מהצעד הראשון.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>האם זה בהתנדבות או בתשלום?</h3>
+          <p>מדובר בתפקיד בתגמול הולם, לא בהתנדבות - יחד עם הכשרה מלאה וליווי צמוד לאורך כל הדרך.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>איפה זה מתקיים?</h3>
+          <p>בבתי ספר בגוש עציון ובאזור, בהתאם לצרכים של בית הספר ולזמינות שלך. נשמח לפרט על האפשרויות הקרובות אליך בפגישת ההיכרות.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>איך מתחילים?</h3>
+          <p>משאירים פרטים בטופס למטה, קובעים שיחת או פגישת היכרות קצרה, ומתאימים לכם מסלול אישי או קבוצתי, כולל התפקיד וההכשרה שלו.</p>
         </div>
       </div>
     </div>
