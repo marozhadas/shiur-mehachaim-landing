@@ -104,6 +104,12 @@
     { id: "impact.coltitle", selector: ".impact-col h3", kind: "text" },
     { id: "impact.itemtitle", selector: ".impact-item b", kind: "text" },
     { id: "impact.itemtext", selector: ".impact-item span", kind: "text" },
+    // ---- faq ----
+    { id: "faq.section", selector: "#faq", kind: "section" },
+    { id: "faq.eyebrow", selector: ".faq .eyebrow-pill", kind: "text" },
+    { id: "faq.heading", selector: ".faq h2", kind: "text" },
+    { id: "faq.question", selector: ".faq-item h3", kind: "text" },
+    { id: "faq.answer", selector: ".faq-item p", kind: "text" },
     // ---- register form ----
     { id: "register.section", selector: "#register", kind: "section" },
     { id: "register.eyebrow", selector: ".register-card .eyebrow", kind: "text" },
