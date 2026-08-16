@@ -58,7 +58,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .container{max-width:var(--container);margin:0 auto;padding-inline:clamp(20px,4vw,64px);}
 
 /* fluid type — vw-based with clamp guardrails (pure vw at 1920px baseline) */
-.fs-hero{font-size:clamp(2.6rem, 6.3vw, 5.4rem);}
+/* 6.3vw hit the 5.4rem ceiling at any viewport ≥~1371px, which pinned the hero headline at
+   the same fixed size across almost every realistic desktop/laptop width — it only ever
+   re-wrapped, never actually shrank, in exactly the range that matters most. 5vw pushes
+   that ceiling out to ~1728px (and the floor down to ~832px), so the text visibly scales
+   with vw across the whole practical desktop/laptop/tablet range instead of being flat. */
+.fs-hero{font-size:clamp(2.6rem, 5vw, 5.4rem);}
 .fs-h2{font-size:clamp(1.9rem, 4.5vw, 4rem);}
 .fs-h2-lg{font-size:clamp(2.1rem, 6.3vw, 5.6rem);}
 .fs-h2-md{font-size:clamp(1.7rem, 3.4vw, 3rem);}
