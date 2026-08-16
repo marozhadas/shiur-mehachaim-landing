@@ -55,7 +55,11 @@
 (function () {
   "use strict";
 
-  const CONFIG_KEY = "lfl_ve_config_v1";
+  // bumped v1 -> v2: forces every browser to drop whatever it had accumulated in
+  // localStorage (old fixed-px !important overrides from early editor sessions, before the
+  // hero was rebuilt with proportional CSS) and start clean, instead of silently replaying
+  // stale overrides forever on top of new base CSS that was never designed to coexist with them.
+  const CONFIG_KEY = "lfl_ve_config_v2";
   const ADMIN_KEY = "lfl_ve_admin_session";
   const PASSCODE = "2525"; // MVP-only client gate — see header note. Change freely.
   // desktop = large monitor (~17–32"), laptop = laptop screen (~14–16"). CSS can only ever
