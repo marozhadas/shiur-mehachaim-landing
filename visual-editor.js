@@ -23,13 +23,16 @@
            desktop: { fontSize, color, backgroundColor, width, maxWidth,
                        paddingTop, paddingRight, paddingBottom, paddingLeft,
                        marginTop, marginBottom, gap, objectFit },
+           laptop: { ...only the overridden keys... },
            tablet: { ...only the overridden keys... },
            mobile: { ...only the overridden keys... }
          },
-         visibility: { desktop: true, tablet: true, mobile: true }
+         visibility: { desktop: true, laptop: true, tablet: true, mobile: true }
        }
      Only *overridden* properties are stored per breakpoint — anything absent
-     falls through to the next wider breakpoint (desktop → tablet → mobile),
+     falls through to the next wider breakpoint (desktop → laptop → tablet → mobile).
+     desktop = large monitor (~17–32"), laptop = laptop screen (~14–16"), both approximated
+     by a 1440px viewport-width threshold since CSS can't see physical screen size.
      exactly the cascade the spec asked for. This is enforced by generating
      real CSS with `[data-editable-id="…"]` selectors inside min/max-width
      media queries (see buildStyleSheet), never inline styles — so the page
@@ -55,9 +58,12 @@
   const CONFIG_KEY = "lfl_ve_config_v1";
   const ADMIN_KEY = "lfl_ve_admin_session";
   const PASSCODE = "2525"; // MVP-only client gate — see header note. Change freely.
-  const BREAKPOINTS = ["desktop", "tablet", "mobile"];
-  const BP_LABEL = { desktop: "מחשב", tablet: "טאבלט", mobile: "מובייל" };
-  const BP_ICON = { desktop: "🖥️", tablet: "📱", mobile: "📱" };
+  // desktop = large monitor (~17–32"), laptop = laptop screen (~14–16"). CSS can only ever
+  // key off viewport width (px), not physical screen size, so 1440px is an approximation —
+  // a common laptop/desktop dividing line in practice, not a hard physical measurement.
+  const BREAKPOINTS = ["desktop", "laptop", "tablet", "mobile"];
+  const BP_LABEL = { desktop: "מחשב נייח", laptop: "מחשב נייד", tablet: "טאבלט", mobile: "מובייל" };
+  const BP_ICON = { desktop: "🖥️", laptop: "💻", tablet: "📱", mobile: "📱" };
 
   // ---- stable, non-fragile registry: editableId -> {selector, kind, deletable} ----
   // Selectors are existing classes/ids already in the markup — never nth-child.
@@ -196,9 +202,11 @@
   }
 
   function entry(id) {
-    if (!config[id]) config[id] = { content: {}, styles: { desktop: {}, tablet: {}, mobile: {} }, visibility: { desktop: true, tablet: true, mobile: true } };
-    if (!config[id].styles) config[id].styles = { desktop: {}, tablet: {}, mobile: {} };
-    if (!config[id].visibility) config[id].visibility = { desktop: true, tablet: true, mobile: true };
+    if (!config[id]) config[id] = { content: {}, styles: { desktop: {}, laptop: {}, tablet: {}, mobile: {} }, visibility: { desktop: true, laptop: true, tablet: true, mobile: true } };
+    if (!config[id].styles) config[id].styles = { desktop: {}, laptop: {}, tablet: {}, mobile: {} };
+    if (!config[id].styles.laptop) config[id].styles.laptop = {}; // upgrade configs saved before the laptop tier existed
+    if (!config[id].visibility) config[id].visibility = { desktop: true, laptop: true, tablet: true, mobile: true };
+    if (config[id].visibility.laptop === undefined) config[id].visibility.laptop = true;
     return config[id];
   }
 
@@ -244,7 +252,7 @@
     if (styles.hAlign && HALIGN_MARGIN[styles.hAlign]) out.push(HALIGN_MARGIN[styles.hAlign]);
     return out;
   }
-  const BP_QUERY = { tablet: "(max-width:1024px)", mobile: "(max-width:640px)" };
+  const BP_QUERY = { laptop: "(max-width:1440px)", tablet: "(max-width:1024px)", mobile: "(max-width:640px)" };
 
   function ruleFor(id, styles) {
     const decls = Object.keys(styles).filter((k) => styles[k] !== undefined && styles[k] !== "" && PROP_CSS[k])
@@ -259,18 +267,24 @@
   }
 
   function buildStyleSheet() {
-    let base = "", tablet = "", mobile = "";
+    let base = "", laptop = "", tablet = "", mobile = "";
     Object.keys(config).forEach((id) => {
       const c = entry(id);
       base += ruleFor(id, c.styles.desktop || {});
+      laptop += ruleFor(id, c.styles.laptop || {});
       tablet += ruleFor(id, c.styles.tablet || {});
       mobile += ruleFor(id, c.styles.mobile || {});
       // visibility
       if (c.visibility.desktop === false) base += `[data-editable-id="${id}"]{display:none!important;}`;
+      if (c.visibility.laptop === false) laptop += `[data-editable-id="${id}"]{display:none!important;}`;
       if (c.visibility.tablet === false) tablet += `[data-editable-id="${id}"]{display:none!important;}`;
       if (c.visibility.mobile === false) mobile += `[data-editable-id="${id}"]{display:none!important;}`;
     });
+    // order matters: narrower media queries are declared LATER so they win over wider ones
+    // at widths where both conditions are simultaneously true (e.g. a 900px viewport
+    // matches both max-width:1440px and max-width:1024px).
     let css = base;
+    if (laptop) css += `@media ${BP_QUERY.laptop}{${laptop}}`;
     if (tablet) css += `@media ${BP_QUERY.tablet}{${tablet}}`;
     if (mobile) css += `@media ${BP_QUERY.mobile}{${mobile}}`; // declared last → wins at narrow widths
     let tag = document.getElementById("ve-dynamic-styles");
@@ -717,7 +731,8 @@
   function switchBreakpoint(bp) {
     currentBreakpoint = bp;
     document.querySelectorAll("#ve-bp-switch button").forEach((b) => b.classList.toggle("ve-active", b.dataset.bp === bp));
-    document.body.classList.remove("ve-device-tablet", "ve-device-mobile");
+    document.body.classList.remove("ve-device-laptop", "ve-device-tablet", "ve-device-mobile");
+    if (bp === "laptop") document.body.classList.add("ve-device-laptop");
     if (bp === "tablet") document.body.classList.add("ve-device-tablet");
     if (bp === "mobile") document.body.classList.add("ve-device-mobile");
     if (selectedId) refreshPanel();

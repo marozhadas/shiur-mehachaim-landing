@@ -40,6 +40,7 @@ body.ve-mode-on .nav{top:var(--ve-topbar-h);}
 
 /* device-preview frame */
 #ve-frame-wrap{transition:max-width .35s ease, margin .35s ease;margin-inline:auto;}
+body.ve-device-laptop #ve-frame-wrap{max-width:1440px;box-shadow:0 0 0 2px #ccc, 0 20px 60px rgba(0,0,0,.25);}
 body.ve-device-tablet #ve-frame-wrap{max-width:768px;box-shadow:0 0 0 2px #ccc, 0 20px 60px rgba(0,0,0,.25);}
 body.ve-device-mobile #ve-frame-wrap{max-width:390px;box-shadow:0 0 0 2px #ccc, 0 20px 60px rgba(0,0,0,.25);}
 
