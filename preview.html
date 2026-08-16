@@ -130,8 +130,16 @@ section{position:relative;}
    below it (photo width, gap, etc.) consistent on any window shape, at the cost of the hero
    sometimes running a little taller than the viewport on unusually short windows — a much
    safer trade-off than clipped or disproportionate content. */
-.hero-row{position:relative;z-index:2;width:80vw;aspect-ratio:1920/1083;margin:auto;}
-.hero-photo{position:absolute;left:0;bottom:0;height:88%;z-index:3;pointer-events:none;display:flex;align-items:flex-end;}
+/* margin: auto auto 0 auto (not plain "auto") bottom-anchors the row within the section
+   instead of vertically centering it — the row's own aspect-ratio height rarely matches
+   the section's 100dvh height exactly, so plain centering left an inconsistent gap below
+   it (and thus below the photo) on most real screens. Horizontal centering (left/right
+   auto) is unchanged. Reset back to plain "auto" for the stacked mobile layout below. */
+.hero-row{position:relative;z-index:2;width:80vw;aspect-ratio:1920/1083;margin:auto auto 0 auto;}
+/* anchored from the RIGHT at the exact width the copy panel starts (see .hero-copy width
+   below) instead of pinned to the left with a fixed-px nudge — this way the photo always
+   meets the bubble panel with zero gap at any viewport width, no magic numbers needed. */
+.hero-photo{position:absolute;right:54%;bottom:0;height:88%;z-index:3;pointer-events:none;display:flex;align-items:flex-end;}
 .hero-photo img{height:100%;width:auto;max-width:none;display:block;filter:drop-shadow(0 30px 50px rgba(4,15,34,.4));transform:scale(1);transition:transform 1s var(--ease);}
 .hero:hover .hero-photo img{transform:scale(1.02);}
 .hero-copy{
@@ -371,8 +379,7 @@ section{position:relative;}
    visual-editor.js only persists edits in the browser that made them — otherwise every
    fresh visitor loses them, which is exactly what happened on GitHub Pages) ================= */
 .hero-cta{margin-right:auto;margin-left:0;transform:translate(200px,50px)!important;}
-.hero-photo img{object-fit:contain;transform:translate(198px,0)!important;}
-.hero-bubble{transform:translate(-97px,0);}
+.hero-photo img{object-fit:contain;}
 .next-gen-photo img{width:100%;transform:scale(1.07)!important;}
 .crisis-photo img{width:100%;object-fit:cover;transform:scale(1.04);}
 .next-gen-copy h2{line-height:1;}
@@ -387,12 +394,15 @@ section{position:relative;}
   .nav-links{display:none;}
   .burger{display:block;}
   .next-gen .container,.founder .container{grid-template-columns:1fr;}
-  .hero-row{width:100%;aspect-ratio:auto;height:auto;min-height:0;max-height:none;display:flex;flex-direction:column;padding-top:clamp(90px,20vw,120px);}
-  .hero-photo{position:relative;left:auto;bottom:auto;height:44vh;width:100%;display:flex;justify-content:center;order:1;transform:none;}
+  /* stacked mobile layout: reset the desktop-only bottom-anchor/right-anchor/transform
+     tricks above back to plain, symmetric centering — figures centered, bubble centered
+     below them, button centered below that. */
+  .hero-row{width:100%;aspect-ratio:auto;height:auto;min-height:0;max-height:none;display:flex;flex-direction:column;align-items:center;padding-top:clamp(90px,20vw,120px);margin:auto;}
+  .hero-photo{position:relative;left:auto;right:auto;bottom:auto;height:44vh;width:100%;display:flex;justify-content:center;order:1;transform:none;}
   .hero-photo img{width:auto;height:100%;}
-  .hero-copy{position:relative;right:auto;top:auto;bottom:auto;width:100%;order:2;padding:clamp(20px,5vw,32px) 20px clamp(44px,7vw,60px);transform:none;}
+  .hero-copy{position:relative;right:auto;top:auto;bottom:auto;width:100%;order:2;padding:clamp(20px,5vw,32px) 20px clamp(44px,7vw,60px);transform:none;align-items:center;}
   .hero-bubble{max-width:100%;}
-  .hero-cta{align-self:center;}
+  .hero-cta{align-self:center;margin-right:0;margin-left:0;transform:none!important;}
   .cards-row{grid-template-columns:repeat(2,1fr);}
   .impact-cols{grid-template-columns:1fr;}
   .stats-card{grid-template-columns:1fr;gap:20px;}
