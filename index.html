@@ -116,7 +116,12 @@ section{position:relative;}
 
 /* ================= HERO ================= */
 .hero{
-  position:relative;min-height:100dvh;display:flex;align-items:stretch;overflow:hidden;
+  /* --hero-trim-top/bottom default to 0 (full 100dvh); the visual editor's "hero-section"
+     panel drives these two custom properties independently so the section's overall
+     height can be reduced from the top and/or bottom without touching the hero-row's own
+     centering/anchoring logic above. */
+  --hero-trim-top:0px;--hero-trim-bottom:0px;
+  position:relative;min-height:calc(100dvh - var(--hero-trim-top) - var(--hero-trim-bottom));display:flex;align-items:stretch;overflow:hidden;
   background:linear-gradient(68deg,var(--navy-800) 14%,var(--blue-600) 104%);
 }
 .hero::before{
@@ -342,6 +347,10 @@ section{position:relative;}
 .reg-form input,.reg-form textarea{
   width:100%;border:1.5px solid #e3e8ee;border-radius:12px;padding:.9em 1.1em;font-family:'Ploni';
   font-size:1rem;background:#fbfbfc;transition:border-color .3s,box-shadow .3s;
+  /* type="tel" (and number/email in some browsers) default to LTR text-align even with
+     dir="rtl" inherited from the page — a known cross-browser quirk. Force it explicitly
+     so every field in the form lines up the same way regardless of input type. */
+  text-align:right;direction:rtl;
 }
 .reg-form input:focus,.reg-form textarea:focus{outline:none;border-color:var(--blue-600);box-shadow:0 0 0 4px rgba(3,109,227,.12);}
 .reg-form button{

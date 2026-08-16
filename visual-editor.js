@@ -64,6 +64,7 @@
   // A selector matching N elements auto-expands to id.1 … id.N (see stampRegistry).
   const ELEMENT_REGISTRY = [
     // ---- hero ----
+    { id: "hero.section", selector: ".hero", kind: "hero-section" },
     { id: "hero.title", selector: ".hero-title", kind: "text" },
     { id: "hero.bubble", selector: ".hero-bubble", kind: "container" },
     { id: "hero.cta", selector: ".hero-cta", kind: "button" },
@@ -219,6 +220,9 @@
     textAlign: (v) => `text-align:${v}`,
     lineHeight: (v) => `line-height:${v}`,
     zIndex: (v) => `z-index:${v}`,
+    position: (v) => `position:${v}`,
+    heroTrimTop: (v) => `--hero-trim-top:${v}px`,
+    heroTrimBottom: (v) => `--hero-trim-bottom:${v}px`,
   };
   // composite properties: several style keys combine into one CSS declaration
   // (e.g. translateX + translateY + scale all feed the single `transform` property —
@@ -533,6 +537,12 @@
       html += colorField("backgroundColor", "צבע רקע", bpStyles.backgroundColor, id);
       html += slider("paddingTop", "רווח עליון (צמצום/הגדלה)", bpStyles.paddingTop, 0, 220, "px", id);
       html += slider("paddingBottom", "רווח תחתון", bpStyles.paddingBottom, 0, 220, "px", id);
+    } else if (kind === "hero-section") {
+      // hero uses min-height:100dvh (not padding-block like every other section), so
+      // shrinking it means trimming that height directly, not adding padding on top of it.
+      html += slider("heroTrimTop", "צמצום גובה מלמעלה", bpStyles.heroTrimTop, 0, 400, "px", id);
+      html += slider("heroTrimBottom", "צמצום גובה מלמטה", bpStyles.heroTrimBottom, 0, 400, "px", id);
+      html += `<div class="ve-hint">מקטין את גובה סקשן ההירו (שברירת המחדל שלו הוא תמיד גובה המסך המלא) מלמעלה ומלמטה בנפרד, בלי לגעת במיקום התמונה/הבועה בתוכו.</div>`;
     }
 
     html += `<hr class="ve-section-divider">`;
@@ -663,9 +673,24 @@
     buildStyleSheet(); scheduleSave();
   }
   function onBringFrontChange(id, cb) {
+    // z-index only affects positioned elements (relative/absolute/fixed/sticky) or
+    // flex/grid items — most registered elements (headings, buttons, cards) are plain
+    // position:static by default, where z-index is silently ignored. Detect that at
+    // click-time and add position:relative ONLY when needed (it doesn't move a static
+    // element at all, since no top/left/etc. offset is set) — never touch elements that
+    // are already absolute/fixed, since forcing relative would destroy their layout
+    // (e.g. the hero photo, which is positioned against its section).
     pushUndo();
-    if (cb.checked) entry(id).styles[currentBreakpoint].zIndex = 999;
-    else delete entry(id).styles[currentBreakpoint].zIndex;
+    const el = elMap[id];
+    const styles = entry(id).styles[currentBreakpoint];
+    if (cb.checked) {
+      styles.zIndex = 999;
+      const computedPos = el ? getComputedStyle(el).position : "static";
+      if (computedPos === "static") styles.position = "relative";
+    } else {
+      delete styles.zIndex;
+      delete styles.position;
+    }
     buildStyleSheet(); scheduleSave();
   }
   function onAlignClick(id, prop, value) {
