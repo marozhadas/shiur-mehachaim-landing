@@ -218,6 +218,7 @@
     gap: (v) => `gap:${v}px`,
     textAlign: (v) => `text-align:${v}`,
     lineHeight: (v) => `line-height:${v}`,
+    zIndex: (v) => `z-index:${v}`,
   };
   // composite properties: several style keys combine into one CSS declaration
   // (e.g. translateX + translateY + scale all feed the single `transform` property —
@@ -546,6 +547,11 @@
     html += `<div class="ve-hint">הזזה חזותית בלבד (transform) — לא משנה את זרימת הדף, בטוח לביטול בכל רגע.</div>`;
 
     html += `<hr class="ve-section-divider">`;
+    html += `<h4>שכבה (עומק)</h4>`;
+    html += `<div class="ve-visibility-row"><label><input type="checkbox" id="ve-bring-front" ${bpStyles.zIndex ? "checked" : ""}> 🔝 הבא לקדמה (מעל שאר האלמנטים)</label></div>`;
+    html += `<div class="ve-hint">שימושי כשאלמנט מוסתר חלקית מאחורי אלמנט אחר (למשל אחרי הזזה או הגדלה).</div>`;
+
+    html += `<hr class="ve-section-divider">`;
     html += `<h4>נראות לפי מסך</h4>`;
     html += `<div class="ve-visibility-row">` + BREAKPOINTS.map((bp) => `
         <label><input type="checkbox" data-vis="${bp}" ${c.visibility[bp] !== false ? "checked" : ""}> ${BP_ICON[bp]} ${BP_LABEL[bp]}</label>`).join("") + `</div>`;
@@ -566,6 +572,8 @@
     panel.querySelectorAll("select.ve-select").forEach((s) => s.addEventListener("change", () => onStyleInput(id, s)));
     panel.querySelectorAll(".ve-reset").forEach((r) => r.addEventListener("click", () => onFieldReset(id, r.dataset.prop)));
     panel.querySelectorAll('[data-vis]').forEach((cb) => cb.addEventListener("change", () => onVisibilityChange(id, cb)));
+    const bringFrontCb = document.getElementById("ve-bring-front");
+    if (bringFrontCb) bringFrontCb.addEventListener("change", () => onBringFrontChange(id, bringFrontCb));
     panel.querySelectorAll(".ve-align-toggle").forEach((group) => {
       group.querySelectorAll("button").forEach((btn) => btn.addEventListener("click", () => onAlignClick(id, group.dataset.alignProp, btn.dataset.alignValue)));
     });
@@ -652,6 +660,12 @@
   function onVisibilityChange(id, cb) {
     pushUndo();
     entry(id).visibility[cb.dataset.vis] = cb.checked;
+    buildStyleSheet(); scheduleSave();
+  }
+  function onBringFrontChange(id, cb) {
+    pushUndo();
+    if (cb.checked) entry(id).styles[currentBreakpoint].zIndex = 999;
+    else delete entry(id).styles[currentBreakpoint].zIndex;
     buildStyleSheet(); scheduleSave();
   }
   function onAlignClick(id, prop, value) {
