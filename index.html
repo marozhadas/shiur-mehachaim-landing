@@ -392,16 +392,30 @@ section{position:relative;}
 /* ================= FINE-TUNE OVERRIDES (baked in from a visual-editor session, since
    visual-editor.js only persists edits in the browser that made them — otherwise every
    fresh visitor loses them, which is exactly what happened on GitHub Pages) ================= */
-.hero-cta{margin-right:auto;margin-left:0;transform:translate(200px,50px)!important;}
-.hero-photo img{object-fit:contain;}
+.hero-cta{margin-right:auto;margin-left:0;transform:translate(200px,-77px)!important;}
+.hero-photo img{object-fit:contain;transform:translate(154px,-89px) scale(.9)!important;}
 .next-gen-photo img{width:100%;transform:scale(1.07)!important;}
 .crisis-photo img{width:100%;object-fit:cover;transform:scale(1.04);}
-.next-gen-copy h2{line-height:1;}
+.next-gen-copy h2{line-height:1;text-align:center;transform:translate(14px,-28px) scale(1.45)!important;}
+.hero-bubble{padding:11px!important;z-index:999;transform:translate(-200px,-147px) scale(1.28)!important;}
+.stats-card{transform:translateY(-107px);}
+/* scale+line-height only (not the saved fixed fontSize:64px) — a fixed px size would
+   silently undo the vw-fluid clamp() sizing fix; scale is a pure multiplier on top of that
+   fluid size, so it stays responsive while still applying the requested size reduction. */
+.hero-title{transform:scale(.8)!important;line-height:1.05!important;}
 #who-fits{padding-bottom:80px;}
 #crisis{padding-bottom:51px;}
 #breakpoint{padding-bottom:31px;padding-top:55px;}
 #impact{padding-bottom:50px;padding-top:68px;}
 #register{padding-bottom:60px;padding-top:63px;}
+
+/* laptop bucket (~1440px and down to the section's real 980px stacking breakpoint — NOT
+   the editor's own 1024px, which would incorrectly straddle both layout modes) */
+@media (min-width:981px) and (max-width:1440px){
+  .hero-bubble{transform:translate(-79px,-196px) scale(1.14)!important;}
+  .hero-photo img{transform:translate(22px,-145px) scale(1.24)!important;}
+  .hero-cta{transform:translate(182px,-135px)!important;}
+}
 
 /* ================= RESPONSIVE ================= */
 @media (max-width:980px){
@@ -426,6 +440,18 @@ section{position:relative;}
   .register-wrap{display:flex;flex-direction:column;}
   .register-card{margin:16px;max-width:none;}
   .founder-visual{margin-top:40px;}
+}
+/* tablet bucket, scoped to the section's actual stacked-layout zone (641–980px) rather than
+   the editor's raw 1024px threshold, so these transforms apply within the stacked/centered
+   layout they were meant for instead of leaking into the wide/absolute layout above 980px. */
+@media (min-width:641px) and (max-width:980px){
+  .hero-bubble{transform:translateX(164px)!important;}
+  .hero-photo img{transform:translate(-97px,164px) scale(1.51)!important;}
+}
+@media (max-width:640px){
+  .hero-bubble{transform:translate(62px,0) scale(.83)!important;}
+  .hero-photo img{transform:translate(-42px,200px) scale(1.1)!important;}
+  .hero-cta{transform:translateX(135px)!important;}
 }
 @media (max-width:620px){
   .cards-row{grid-template-columns:1fr;}
