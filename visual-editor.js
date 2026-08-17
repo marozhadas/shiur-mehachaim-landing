@@ -88,7 +88,10 @@
     { id: "nextgen.section", selector: "#next-gen", kind: "section" },
     { id: "nextgen.heading", selector: ".next-gen-copy h2", kind: "text" },
     { id: "nextgen.paragraph", selector: ".next-gen-copy p", kind: "text" },
-    { id: "nextgen.photo", selector: ".next-gen-photo img", kind: "image" },
+    // nextgen.photo intentionally not registered: this slot is now a <video> (see
+    // preview.html), and the "image" kind's replace-photo control would target the wrong
+    // element / try to set a photo as a video src. Add a dedicated "video" kind here if this
+    // needs to be editable again.
     // ---- who fits ----
     { id: "whofits.section", selector: "#who-fits", kind: "section" },
     { id: "whofits.heading", selector: "#who-fits h2", kind: "text" },
