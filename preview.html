@@ -397,7 +397,14 @@ section{position:relative;}
    instead of .register (the full section) the moment the wrap finishes revealing — the
    exact bug this comment is guarding against. Put entrance animations on .register-card
    instead; it's a sibling of .register-photo, not an ancestor, so it can't trap it. */
-.register-photo{position:absolute;top:0;bottom:0;right:0;width:min(52%,720px);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;background:var(--navy-900);}
+/* right is NOT 0 — .register-photo is positioned against .register (the full-bleed
+   section), but .register-card lives inside .container, which caps at var(--container) and
+   centers itself once the viewport is wider than that. On a wide screen "right:0" pinned
+   the photo to the actual browser edge while the card stayed inside the narrower centered
+   container, opening a large gap between them. This offsets by exactly the container's own
+   centering margin + its inline padding, so the photo's edge tracks the container's edge
+   (and therefore the card) at any viewport width instead of the raw section edge. */
+.register-photo{position:absolute;top:0;bottom:0;right:max(0px,calc((100% - var(--container)) / 2 - 24px));width:min(52%,720px);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;background:var(--navy-900);}
 .register-photo img{width:100%;height:100%;object-fit:contain;object-position:bottom center;}
 .register-card{
   position:relative;z-index:2;background:#fff;border-radius:clamp(20px,2.6vw,38px);
@@ -492,7 +499,10 @@ section{position:relative;}
   .stat + .stat{border-top:1px solid rgba(18,44,73,.12);padding-top:20px;}
   .register-photo{position:relative;inset:auto;width:100%;height:260px;order:-1;}
   .register-wrap{display:flex;flex-direction:column;}
-  .register-card{margin:16px;max-width:none;}
+  /* margin-top:0 (not the full 16px on every side) so the card's top edge touches the
+     photo's bottom edge exactly, per request — order:-1 above already puts the photo
+     first/above, this just closes the gap between the two. */
+  .register-card{margin:16px;margin-top:0;max-width:none;}
   .founder-visual{margin-top:40px;}
 }
 @media (max-width:620px){
