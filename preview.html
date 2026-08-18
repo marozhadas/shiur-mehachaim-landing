@@ -388,7 +388,15 @@ section{position:relative;}
    section's true top/bottom edges instead of floating inside the card's own padding or,
    worse, anchoring to the viewport if no ancestor is positioned at all — this is also what
    makes it bigger, since the box now spans the section's full height instead of just
-   matching the card. */
+   matching the card.
+   IMPORTANT: never put a `reveal`/`reveal-r`/`reveal-down` class (or any other transform)
+   directly on .register-wrap. Those classes set `transform` even in their settled "in"
+   state (e.g. translateY(0)), and ANY transform — including a no-op one — makes an element
+   a new containing block for absolutely-positioned descendants. That silently redirects
+   .register-photo's bottom:0 to anchor against .register-wrap (short, card-height only)
+   instead of .register (the full section) the moment the wrap finishes revealing — the
+   exact bug this comment is guarding against. Put entrance animations on .register-card
+   instead; it's a sibling of .register-photo, not an ancestor, so it can't trap it. */
 .register-photo{position:absolute;top:0;bottom:0;right:0;width:min(52%,720px);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;background:var(--navy-900);}
 .register-photo img{width:100%;height:100%;object-fit:contain;object-position:bottom center;}
 .register-card{
@@ -701,9 +709,9 @@ section{position:relative;}
   <!-- ============================================================= REGISTER FORM ============================================================= -->
   <section class="register section-pad" id="register">
     <div class="container">
-      <div class="register-wrap reveal">
+      <div class="register-wrap">
         <div class="register-photo"><img src="public/images/lawyer-boy.png" alt="מנטור עם נער"></div>
-        <div class="register-card">
+        <div class="register-card reveal">
           <div class="eyebrow">רוצים להיות חלק מהמהפכה?</div>
           <h2>לבירורים ופגישת היכרות - הירשמו.</h2>
           <p>השאירו פרטים ונחזור אליכם כדי לקבוע פגישת היכרות שתתאים לכם אישית או קבוצתית, על התפקיד שלכם בה וההכשרה.</p>
