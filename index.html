@@ -180,11 +180,14 @@ section{position:relative;}
   border-radius:4px;transform:scaleX(0);transform-origin:right;transition:transform .8s .5s var(--ease);
 }
 .hero-bubble.in .hl::after{transform:scaleX(1);}
+/* lives inside .hero-bubble now (not a sibling below it) — as an inline-level element under
+   the bubble's inherited direction:rtl it naturally sits flush right, lined up with the
+   text above it, with no positioning hacks needed. */
 .hero-cta{
   display:inline-flex;align-items:center;gap:10px;background:var(--lime);color:var(--navy-ink);
   font-family:'Ploni';font-weight:700;font-size:var(--fs-btn);margin-top:clamp(22px,3vw,34px);
   padding:.6em 1.7em;border-radius:20px;box-shadow:0 8px 30px rgba(0,0,0,.25);
-  transition:transform .4s var(--ease),box-shadow .4s var(--ease);align-self:flex-end;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease);
 }
 .hero-cta:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 16px 40px rgba(0,0,0,.35);}
 .hero-cta:active{transform:translateY(-1px) scale(.98);}
@@ -402,7 +405,6 @@ section{position:relative;}
 /* ================= FINE-TUNE OVERRIDES (baked in from a visual-editor session, since
    visual-editor.js only persists edits in the browser that made them — otherwise every
    fresh visitor loses them, which is exactly what happened on GitHub Pages) ================= */
-.hero-cta{margin-right:auto;margin-left:0;transform:translate(200px,-77px)!important;}
 .hero-photo img{object-fit:contain;transform:translate(154px,-89px) scale(.9)!important;}
 .next-gen-photo img{width:100%;transform:scale(1.07)!important;}
 .crisis-photo img{width:100%;object-fit:cover;transform:scale(1.04);}
@@ -424,7 +426,6 @@ section{position:relative;}
 @media (min-width:981px) and (max-width:1440px){
   .hero-bubble{transform:translate(-79px,-196px) scale(1.14)!important;}
   .hero-photo img{transform:translate(22px,-145px) scale(1.24)!important;}
-  .hero-cta{transform:translate(182px,-135px)!important;}
 }
 
 /* ================= RESPONSIVE ================= */
@@ -440,7 +441,6 @@ section{position:relative;}
   .hero-photo img{width:auto;height:100%;}
   .hero-copy{position:relative;right:auto;top:auto;bottom:auto;width:100%;order:2;padding:clamp(20px,5vw,32px) 20px clamp(44px,7vw,60px);transform:none;align-items:center;}
   .hero-bubble{max-width:100%;}
-  .hero-cta{align-self:center;margin-right:0;margin-left:0;transform:none!important;}
   .cards-row{grid-template-columns:repeat(2,1fr);}
   .impact-cols{grid-template-columns:1fr;}
   .stats-card{grid-template-columns:1fr;gap:20px;}
@@ -461,7 +461,6 @@ section{position:relative;}
 @media (max-width:640px){
   .hero-bubble{transform:translate(62px,0) scale(.83)!important;}
   .hero-photo img{transform:translate(-42px,200px) scale(1.1)!important;}
-  .hero-cta{transform:translateX(135px)!important;}
 }
 @media (max-width:620px){
   .cards-row{grid-template-columns:1fr;}
@@ -510,8 +509,8 @@ section{position:relative;}
           <span>אתה יכול <span class="hl">להשפיע</span></span>
           <span>על הדור הבא!</span>
         </h1>
+        <a href="#register" class="hero-cta reveal" style="transition-delay:.3s">ספרו לי על המיזם</a>
       </div>
-      <a href="#register" class="hero-cta reveal" style="transition-delay:.3s">ספרו לי על המיזם</a>
     </div>
   </div>
 </section>
