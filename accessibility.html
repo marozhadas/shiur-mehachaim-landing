@@ -1,0 +1,120 @@
+<!-- שיעור מהחיים — הצהרת נגישות -->
+<meta charset="UTF-8">
+<title>הצהרת נגישות | שיעור מהחיים</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="public/svg/icon-blue.svg" type="image/svg+xml">
+<link rel="icon" href="public/favicon/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="public/favicon/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="alternate icon" href="public/favicon/favicon.ico">
+<link rel="apple-touch-icon" href="public/favicon/apple-touch-icon.png">
+<style>
+/* ================= FONTS (local files from /פונטים) ================= */
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-ultralight-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-ultralight-aaa.woff') format('woff');font-weight:200;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-light-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-light-aaa.woff') format('woff');font-weight:300;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-regular-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-regular-aaa.woff') format('woff');font-weight:400;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-demibold-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-demibold-aaa.woff') format('woff');font-weight:600;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-bold-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-bold-aaa.woff') format('woff');font-weight:700;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('public/fonts/stanga/stanga-black-aaa.woff2') format('woff2'),url('public/fonts/stanga/stanga-black-aaa.woff') format('woff');font-weight:900;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('public/fonts/stanga/stanga-bold-aaa.woff2') format('woff2'),url('public/fonts/stanga/stanga-bold-aaa.woff') format('woff');font-weight:700;font-display:swap;}
+
+/* ================= TOKENS (matching index.html) ================= */
+:root{
+  --navy-900:#122c49;
+  --navy-ink:#292951;
+  --blue-600:#036de3;
+  --bg-soft:#eaf2fa;
+  --lime:#e6fe0b;
+  --ink-muted:#5b6b82;
+  --shadow-soft:0 10px 50px rgba(13,43,94,.10);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --container:1440px;
+  --fs-body:clamp(1rem, 1.4vw, 1.3rem);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{margin:0;font-family:'Ploni',system-ui,sans-serif;background:var(--bg-soft);color:var(--navy-900);direction:rtl;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+h1,h2,p{margin:0;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:var(--container);margin:0 auto;padding-inline:clamp(20px,4vw,64px);}
+
+.legal-header{background:var(--navy-900);padding-block:clamp(14px,1.8vw,22px);}
+.legal-header .container{display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.legal-logo{width:clamp(108px,8.1vw,158px);flex-shrink:0;}
+.legal-logo img{width:100%;height:auto;}
+.legal-back{color:#fff;font-size:.95rem;font-weight:400;display:flex;align-items:center;gap:6px;transition:color .25s var(--ease);}
+.legal-back:hover{color:var(--lime);}
+
+.legal-main{padding-block:clamp(50px,7vw,100px);}
+.legal-card{background:#fff;border-radius:clamp(20px,2.4vw,36px);box-shadow:var(--shadow-soft);padding:clamp(28px,4vw,64px);max-width:860px;margin-inline:auto;}
+.legal-card h1{font-family:'Stanga';font-weight:900;color:var(--navy-900);font-size:clamp(1.8rem,3.2vw,2.6rem);line-height:1.25;margin-bottom:.9em;}
+.legal-card h2{font-family:'Stanga';font-weight:700;color:var(--navy-900);font-size:clamp(1.15rem,1.9vw,1.45rem);margin-top:1.7em;margin-bottom:.5em;}
+.legal-card h2:first-of-type{margin-top:0;}
+.legal-card p{font-family:'Ploni';font-weight:300;color:var(--navy-ink);line-height:1.8;font-size:var(--fs-body);margin-top:.9em;}
+.legal-card ul{margin:.7em 0 0;padding-inline-start:1.4em;display:flex;flex-direction:column;gap:.5em;}
+.legal-card li{font-family:'Ploni';font-weight:300;color:var(--navy-ink);line-height:1.7;font-size:var(--fs-body);}
+.legal-card strong{font-weight:700;color:var(--navy-900);}
+.legal-card a{color:var(--blue-600);text-decoration:underline;text-underline-offset:2px;}
+
+.footer{background:var(--navy-900);padding-block:clamp(20px,2.5vw,34px);}
+.footer .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.footer .flogo{width:clamp(100px,7vw,150px);}
+.footer p{color:#cfd8e3;font-size:var(--fs-body);}
+.footer-legal{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;flex-basis:100%;order:3;padding-top:14px;margin-top:2px;border-top:1px solid rgba(255,255,255,.12);}
+.footer-legal a{color:#9fb0c7;font-size:.85rem;transition:color .25s var(--ease);}
+.footer-legal a:hover{color:#fff;}
+</style>
+
+<header class="legal-header">
+  <div class="container">
+    <a href="index.html" class="legal-logo"><img src="public/svg/logo-white.svg" alt="שיעור מהחיים"></a>
+    <a href="index.html" class="legal-back">→ חזרה לדף הבית</a>
+  </div>
+</header>
+
+<main class="legal-main">
+  <div class="container">
+    <div class="legal-card">
+
+      <h1>הצהרת נגישות</h1>
+
+      <p>בית הספר <strong>כרמי יהודה</strong> רואה חשיבות עליונה במתן שירות שוויוני, נגיש ומכבד לכלל אזרחי ישראל, לרבות אנשים עם מוגבלות. אנו פועלים להנגשת נכסינו הדיגיטליים במטרה לאפשר לכל אדם לגלוש בקלות ובנוחות.</p>
+
+      <h2>3.1 רמת הנגישות באתר</h2>
+      <p>דף נחיתה זה נבנה והותאם בהתאם להוראות חוק שוויון זכויות לאנשים עם מוגבלות, התשנ"ח-1998, ותקנותיו. ההנגשה מבוצעת על פי התקן הישראלי (ת"י 5568) לנגישות תכנים באינטרנט ברמה AA, ובכפוף להנחיות המסמך הבינלאומי WCAG 2.1.</p>
+
+      <h2>3.2 התאמות הנגישות שבוצעו בדף</h2>
+      <ul>
+        <li><strong>התאמה למכשירים ניידים:</strong> הדף מותאם לצפייה ולגלישה מכל סוגי הדפדפנים והמכשירים (רספונסיביות).</li>
+        <li><strong>ניווט מקלדת:</strong> אפשרות לניווט מלא באמצעות המקלדת בלבד (שימוש במקש Tab, Enter וחיצים).</li>
+        <li><strong>עיצוב וקריאות:</strong> שימוש בניגודיות צבעים מתאימה בין טקסט לרקע, ושימוש בגופנים קריאים וברורים.</li>
+        <li><strong>טפסים נגישים:</strong> שדות טופס הרשמה מלווים בתגיות הסבר ברורות (Labels) והנחיות מפורשות למילוי.</li>
+      </ul>
+
+      <h2>3.3 סטטוס הנגישות וסייגים</h2>
+      <p><strong>הבהרה לגבי הנגשה חלקית:</strong> אנו עושים מאמצים מרביים להבטיח את הנגשת כלל הרכיבים בדף. עם זאת, ייתכן וימצאו רכיבים מסוימים שאינם מונגשים באופן מלא או שטרם הונגשו כראוי עקב מגבלות טכנולוגיות. אנו ממשיכים לפעול ולשפר את נגישות האתר באופן שוטף.</p>
+
+      <h2>3.4 דרכי פנייה לבקשות, הצעות ודיווח על תקלות נגישות</h2>
+      <p>אם נתקלת ברכיב שאינו נגיש, בקושי בגלישה בדף, או אם יש לך הצעה לשיפור הנגישות, נשמח לעמוד לרשותך ולהסדיר את הנושא בהקדם:</p>
+      <ul>
+        <li><strong>דוא"ל לפניות נגישות:</strong> <a href="mailto:office@kyehuda.com">office@kyehuda.com</a></li>
+        <li><strong>טלפון ליצירת קשר:</strong> <a href="tel:0585931150">058-5931150</a></li>
+        <li><strong>כתובת למכתבים:</strong> בית הספר כרמי יהודה, גבעה צהובה 1, אלון שבות, גוש עציון.</li>
+      </ul>
+      <p>בעת פנייה בנושא נגישות, מומלץ לפרט ככל הניתן את הבעיה, כולל תיאור הפעולה, סוג הדפדפן והמכשיר, וקישור לדף הרלוונטי, כדי שנוכל לטפל בפנייה ביעילות המרבית.</p>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <img class="flogo" src="public/svg/logo-white.svg" alt="שיעור מהחיים">
+    <p>עיצוב ופיתוח: הדס מרוז © 2026</p>
+    <nav class="footer-legal">
+      <a href="privacy-policy.html">מדיניות פרטיות</a>
+      <a href="terms.html">תקנון אתר</a>
+      <a href="accessibility.html">הצהרת נגישות</a>
+    </nav>
+  </div>
+</footer>

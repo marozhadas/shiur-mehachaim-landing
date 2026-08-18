@@ -443,6 +443,7 @@ section{position:relative;}
 .reg-consent{display:flex;align-items:flex-start;gap:8px;cursor:pointer;margin-top:2px;}
 .reg-consent input[type="checkbox"]{width:17px;height:17px;flex:none;margin-top:2px;accent-color:var(--blue-600);cursor:pointer;}
 .reg-consent span{color:#9aa5b2;font-size:.75rem;line-height:1.5;}
+.reg-consent span a{color:var(--blue-600);text-decoration:underline;text-underline-offset:2px;}
 
 /* ================= ABOUT FOUNDER ================= */
 .founder .container{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center;direction:ltr;}
@@ -463,6 +464,11 @@ section{position:relative;}
 .footer .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
 .footer .flogo{width:clamp(100px,7vw,150px);}
 .footer p{color:#cfd8e3;font-size:var(--fs-body);}
+/* flex-basis:100% forces this onto its own line below the existing logo+copyright row
+   (which stays a normal flex-wrap row) without restructuring the existing markup. */
+.footer-legal{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;flex-basis:100%;order:3;padding-top:14px;margin-top:2px;border-top:1px solid rgba(255,255,255,.12);}
+.footer-legal a{color:#9fb0c7;font-size:.85rem;transition:color .25s var(--ease);}
+.footer-legal a:hover{color:#fff;}
 
 /* ================= COUNTER helper ================= */
 [data-counter]{}
@@ -744,7 +750,7 @@ section{position:relative;}
             <textarea rows="2" placeholder="ספרו לנו קצת על עצמכם (אופציונלי)"></textarea>
             <label class="reg-consent">
               <input type="checkbox" required>
-              <span>בהרשמה אני מאשר/ת קבלת פרטים ומסכימ/ה לתנאי השימוש ומדיניות הפרטיות</span>
+              <span>בהרשמה אני מאשר/ת קבלת פרטים ומסכימ/ה ל<a href="terms.html" target="_blank" rel="noopener" onclick="event.stopPropagation()">תנאי השימוש</a> ול<a href="privacy-policy.html" target="_blank" rel="noopener" onclick="event.stopPropagation()">מדיניות הפרטיות</a></span>
             </label>
             <button type="submit">אשמח לשמוע פרטים על המיזם</button>
           </form>
@@ -777,6 +783,11 @@ section{position:relative;}
   <div class="container">
     <img class="flogo" src="public/svg/logo-white.svg" alt="שיעור מהחיים">
     <p>עיצוב ופיתוח: הדס מרוז © 2026</p>
+    <nav class="footer-legal">
+      <a href="privacy-policy.html">מדיניות פרטיות</a>
+      <a href="terms.html">תקנון אתר</a>
+      <a href="accessibility.html">הצהרת נגישות</a>
+    </nav>
   </div>
 </footer>
 

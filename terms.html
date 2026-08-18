@@ -1,0 +1,122 @@
+<!-- שיעור מהחיים — תקנון האתר ותנאי שימוש -->
+<meta charset="UTF-8">
+<title>תקנון אתר | שיעור מהחיים</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="public/svg/icon-blue.svg" type="image/svg+xml">
+<link rel="icon" href="public/favicon/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="public/favicon/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="alternate icon" href="public/favicon/favicon.ico">
+<link rel="apple-touch-icon" href="public/favicon/apple-touch-icon.png">
+<style>
+/* ================= FONTS (local files from /פונטים) ================= */
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-ultralight-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-ultralight-aaa.woff') format('woff');font-weight:200;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-light-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-light-aaa.woff') format('woff');font-weight:300;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-regular-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-regular-aaa.woff') format('woff');font-weight:400;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-demibold-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-demibold-aaa.woff') format('woff');font-weight:600;font-display:swap;}
+@font-face{font-family:'Ploni';src:url('public/fonts/ploni/ploni-bold-aaa.woff2') format('woff2'),url('public/fonts/ploni/ploni-bold-aaa.woff') format('woff');font-weight:700;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('public/fonts/stanga/stanga-black-aaa.woff2') format('woff2'),url('public/fonts/stanga/stanga-black-aaa.woff') format('woff');font-weight:900;font-display:swap;}
+@font-face{font-family:'Stanga';src:url('public/fonts/stanga/stanga-bold-aaa.woff2') format('woff2'),url('public/fonts/stanga/stanga-bold-aaa.woff') format('woff');font-weight:700;font-display:swap;}
+
+/* ================= TOKENS (matching index.html) ================= */
+:root{
+  --navy-900:#122c49;
+  --navy-ink:#292951;
+  --blue-600:#036de3;
+  --bg-soft:#eaf2fa;
+  --lime:#e6fe0b;
+  --ink-muted:#5b6b82;
+  --shadow-soft:0 10px 50px rgba(13,43,94,.10);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --container:1440px;
+  --fs-body:clamp(1rem, 1.4vw, 1.3rem);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{margin:0;font-family:'Ploni',system-ui,sans-serif;background:var(--bg-soft);color:var(--navy-900);direction:rtl;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+h1,h2,p{margin:0;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:var(--container);margin:0 auto;padding-inline:clamp(20px,4vw,64px);}
+
+.legal-header{background:var(--navy-900);padding-block:clamp(14px,1.8vw,22px);}
+.legal-header .container{display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.legal-logo{width:clamp(108px,8.1vw,158px);flex-shrink:0;}
+.legal-logo img{width:100%;height:auto;}
+.legal-back{color:#fff;font-size:.95rem;font-weight:400;display:flex;align-items:center;gap:6px;transition:color .25s var(--ease);}
+.legal-back:hover{color:var(--lime);}
+
+.legal-main{padding-block:clamp(50px,7vw,100px);}
+.legal-card{background:#fff;border-radius:clamp(20px,2.4vw,36px);box-shadow:var(--shadow-soft);padding:clamp(28px,4vw,64px);max-width:860px;margin-inline:auto;}
+.legal-card h1{font-family:'Stanga';font-weight:900;color:var(--navy-900);font-size:clamp(1.8rem,3.2vw,2.6rem);line-height:1.25;margin-bottom:.9em;}
+.legal-card h2{font-family:'Stanga';font-weight:700;color:var(--navy-900);font-size:clamp(1.15rem,1.9vw,1.45rem);margin-top:1.7em;margin-bottom:.5em;}
+.legal-card h2:first-of-type{margin-top:0;}
+.legal-card p{font-family:'Ploni';font-weight:300;color:var(--navy-ink);line-height:1.8;font-size:var(--fs-body);margin-top:.9em;}
+.legal-card ul{margin:.7em 0 0;padding-inline-start:1.4em;display:flex;flex-direction:column;gap:.5em;}
+.legal-card li{font-family:'Ploni';font-weight:300;color:var(--navy-ink);line-height:1.7;font-size:var(--fs-body);}
+.legal-card strong{font-weight:700;color:var(--navy-900);}
+.legal-card a{color:var(--blue-600);text-decoration:underline;text-underline-offset:2px;}
+
+.footer{background:var(--navy-900);padding-block:clamp(20px,2.5vw,34px);}
+.footer .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.footer .flogo{width:clamp(100px,7vw,150px);}
+.footer p{color:#cfd8e3;font-size:var(--fs-body);}
+.footer-legal{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;flex-basis:100%;order:3;padding-top:14px;margin-top:2px;border-top:1px solid rgba(255,255,255,.12);}
+.footer-legal a{color:#9fb0c7;font-size:.85rem;transition:color .25s var(--ease);}
+.footer-legal a:hover{color:#fff;}
+</style>
+
+<header class="legal-header">
+  <div class="container">
+    <a href="index.html" class="legal-logo"><img src="public/svg/logo-white.svg" alt="שיעור מהחיים"></a>
+    <a href="index.html" class="legal-back">→ חזרה לדף הבית</a>
+  </div>
+</header>
+
+<main class="legal-main">
+  <div class="container">
+    <div class="legal-card">
+
+      <h1>תקנון האתר ותנאי שימוש</h1>
+
+      <p>ברוכים הבאים לדף הנחיתה של מיזם <strong>"שיעור מהחיים"</strong> המופעל על ידי בית הספר <strong>כרמי יהודה</strong> (להלן: "בית הספר"). הגלישה, השימוש בדף הנחיתה ומילוי טופס ההרשמה מהווים הסכמה מלאה ומפורשת לתנאים המפורטים בתקנון זה.</p>
+
+      <h2>2.1 מהות המיזם ותנאי סף</h2>
+      <p>מיזם "שיעור מהחיים" נועד לשלב בעלי מקצוע ומומחים מן הקהילה להוראת מקצועות ליבה ותחומי העשרה בבית הספר כרמי יהודה (בתשלום בשכר לפי שעה).</p>
+      <p>דרישות הסף להשתתפות במיזם כוללות:</p>
+      <ul>
+        <li>גיל 18 ומעלה.</li>
+        <li>רצון ונכונות לתרום ולהשפיע על דור העתיד.</li>
+        <li>היעדר רישום פלילי וקבלת אישור משטרתי מתאים על פי חוק (כולל החוק למניעת העסקת עברייני מין במוסדות מסוימים).</li>
+        <li>מעבר ראיון אישי ותהליכי מיון פנימיים של בית הספר.</li>
+      </ul>
+
+      <h2>2.2 העדר התחייבות לקבלה או העסקה</h2>
+      <p><strong>הבהרה משפטית חשובה:</strong> מילוי טופס ההרשמה בדף הנחיתה ו/או השארת הפרטים אינם מהווים יחסי עובד-מעסיק, אינם יוצרים התחייבות חוזית ואינם מבטיחים את קבלת המועמד למיזם או להוראה בבית הספר. בית הספר שומר לעצמו את הזכות הבלעדית לשקול, לסנן ולקבל מועמדים לפי שיקול דעתו הפדגוגי והמנהלי.</p>
+
+      <h2>2.3 קניין רוחני</h2>
+      <p>כל זכויות היוצרים והקניין הרוחני בדף הנחיתה, לרבות השם "שיעור מהחיים", עיצוב הדף, הטקסטים, הלוגואים, התמונות והתכנים הכלולים בו, שייכים באופן בלעדי לבית הספר כרמי יהודה. אין להעתיק, לשכפל, להפיץ או לעשות כל שימוש מסחרי בתכנים אלו ללא קבלת אישור מראש ובכתב מבית הספר.</p>
+
+      <h2>2.4 הגבלת אחריות</h2>
+      <p>השירות בדף הנחיתה ניתנים כמות שהם (AS IS). בית הספר עושה כל מאמץ להבטיח את תקינות פעילות הדף, אך אינו מתחייב שהשירות לא יופרע או יתנהל כסדרו ללא הפסקות או שגיאות. בית הספר לא יישא באחריות לכל נזק ישיר או עקיף שייגרם למשתמש עקב שימוש בדף הנחיתה.</p>
+
+      <h2>2.5 סמכות שיפוט ודין חל</h2>
+      <p>על תקנון זה ועל כל נושא הנובע ממנו יחולו אך ורק דיני מדינת ישראל. סמכות השיפוט הבלעדית בכל מחלוקת הנתונה לבית המשפט המוסמך באזור ירושלים.</p>
+      <ul>
+        <li><strong>כתובת המשרדים לפניות משפטיות/מנהליות:</strong> בית הספר כרמי יהודה, גבעה צהובה 1, אלון שבות, גוש עציון | דוא"ל: <a href="mailto:office@kyehuda.com">office@kyehuda.com</a> | טלפון: <a href="tel:0585931150">058-5931150</a>.</li>
+      </ul>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <img class="flogo" src="public/svg/logo-white.svg" alt="שיעור מהחיים">
+    <p>עיצוב ופיתוח: הדס מרוז © 2026</p>
+    <nav class="footer-legal">
+      <a href="privacy-policy.html">מדיניות פרטיות</a>
+      <a href="terms.html">תקנון אתר</a>
+      <a href="accessibility.html">הצהרת נגישות</a>
+    </nav>
+  </div>
+</footer>
