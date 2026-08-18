@@ -88,7 +88,16 @@ section{position:relative;}
 .reveal-r{opacity:0;transform:translateX(60px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
 [dir="rtl"] .reveal-r{transform:translateX(-60px);}
 .reveal-r.in{opacity:1;transform:translateX(0);}
+/* fades DOWN into place (starts above, drops down) — opposite direction of .reveal, which
+   fades up. Combined with .stagger + style="--i:N" (already on each card, in DOM order,
+   which is right-to-left under the page's RTL direction) each one enters after the last. */
+.reveal-down{opacity:0;transform:translateY(-48px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
+.reveal-down.in{opacity:1;transform:translateY(0);}
 .stagger > *{transition-delay:calc(var(--i,0) * 160ms);}
+/* mobile: fade only, no movement, per explicit request */
+@media (max-width:980px){
+  .reveal-down,.reveal-down.in{transform:none;}
+}
 
 /* ================= NAV ================= */
 .nav{
@@ -137,6 +146,16 @@ section{position:relative;}
 .hero::before{
   content:"";position:absolute;inset:-8%;background:url('public/images/hero-bg-texture.png') center/cover;
   opacity:.22;filter:blur(10px);pointer-events:none;
+}
+/* on wide/short-ish windows (typical tablet-landscape and laptop screens) the row's own
+   aspect-ratio height falls well short of a flat 100dvh, and since the row is bottom-
+   anchored, ALL of that shortfall becomes empty space stacked above it, under the nav.
+   Trimming height back on these viewports shrinks that slack; vh-based (not a fixed px) so
+   it scales with the actual window, and self-limiting — on wide/tall windows where the row
+   already nearly fills 100dvh, min-height simply can't go below the row's own content
+   height, so this never clips anything, it only ever removes empty space above it. */
+@media (min-width:981px){
+  .hero{--hero-trim-top:clamp(0px,25vh,220px);}
 }
 /* NOTE: intentionally no max-height cap. Capping it independently of width was the actual
    root cause of two different bugs (a big gap on wide-short windows, then a cropped photo
@@ -236,6 +255,16 @@ section{position:relative;}
 .next-gen-photo{position:relative;border-radius:clamp(24px,3vw,49px);overflow:hidden;aspect-ratio:9/16;box-shadow:0 24px 60px rgba(18,44,73,.22);}
 .next-gen-photo img,.next-gen-photo video{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease);}
 .next-gen-photo:hover img{transform:scale(1.06);}
+/* desktop/tablet only (mobile stays full-width in its single-column stacked layout below):
+   the grid column above stretches this box to width:100% by default, and at a 9:16 ratio a
+   wide column makes for a VERY tall box — taller than the viewport, so the video ran off
+   screen and needed scrolling to see top-to-bottom. Capping height (not width) and letting
+   width follow from the aspect-ratio keeps the entire frame on screen and uncropped, just
+   smaller — instead of width-capping, which would force object-fit:cover to crop the sides
+   off a portrait video. */
+@media (min-width:981px){
+  .next-gen-photo{height:min(72vh,620px);width:auto;max-width:100%;margin-inline:auto;}
+}
 
 /* ================= WHO FITS ================= */
 .who-fits{text-align:center;}
@@ -244,14 +273,21 @@ section{position:relative;}
 .pill{
   background:var(--lime);color:var(--navy-ink);font-family:'Ploni';font-weight:700;
   font-size:clamp(.95rem,1.6vw,1.4rem);padding:.5em 1.4em;border-radius:20px;
-  box-shadow:0 5px 16px rgba(1,49,66,.12);transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+  box-shadow:0 5px 16px rgba(1,49,66,.12);
+  /* longhand, not shorthand — see .serv-card's comment: shorthand resets transition-delay
+     to 0s and silently defeats .stagger > *'s per-pill entrance delay. */
+  transition-property:transform,box-shadow;transition-duration:.35s,.35s;transition-timing-function:var(--ease),var(--ease);
 }
 .pill:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 14px 28px rgba(1,49,66,.22);}
 .cards-row{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,1.8vw,28px);margin-top:clamp(50px,6vw,90px);}
 .serv-card{
   background:#fff;border-radius:clamp(20px,2.4vw,38px);box-shadow:var(--shadow-card);
   padding:clamp(20px,2.6vw,40px) clamp(14px,1.8vw,26px);text-align:center;
-  transition:transform .45s var(--ease),box-shadow .45s var(--ease);
+  /* longhand (not the "transition:" shorthand) deliberately — the shorthand implicitly
+     resets transition-delay to 0s, which was silently overriding .stagger > *'s per-card
+     delay below (same specificity, declared later in the file = wins) and made all 4 cards
+     enter simultaneously instead of one after another. This affected .pill's stagger too. */
+  transition-property:transform,box-shadow;transition-duration:.45s,.45s;transition-timing-function:var(--ease),var(--ease);
 }
 .serv-card:hover{transform:translateY(-10px);box-shadow:0 20px 45px rgba(18,44,73,.18);}
 .serv-card .icon{width:clamp(50px,5vw,86px);height:clamp(50px,5vw,86px);margin-inline:auto;color:var(--navy-900);transition:transform .5s var(--ease);}
@@ -546,19 +582,19 @@ section{position:relative;}
         <span class="pill reveal-scale" style="--i:7">ועוד..</span>
       </div>
       <div class="cards-row stagger" id="cardsRow">
-        <div class="serv-card reveal" style="--i:0">
+        <div class="serv-card reveal-down" style="--i:0">
           <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="15" width="30" height="22" rx="3"/><path d="M9 19l15 11 15-11"/><path d="M17 15V10a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5"/></svg>
           <h3>תגמול הולם</h3><p>בלי לאבד את תחושת השליחות</p>
         </div>
-        <div class="serv-card reveal" style="--i:1">
+        <div class="serv-card reveal-down" style="--i:1">
           <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 12c6-4 12-4 18 0v24c-6-4-12-4-18 0z"/><path d="M42 12c-6-4-12-4-18 0v24c6-4 12-4 18 0z"/></svg>
           <h3>כל תחום</h3><p>הנדסה, עסקים, חקלאות, ביטחון, יהדות</p>
         </div>
-        <div class="serv-card reveal" style="--i:2">
+        <div class="serv-card reveal-down" style="--i:2">
           <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="15" r="7"/><path d="M9 40c2-9 8-13 15-13s13 4 15 13"/></svg>
           <h3>אנחנו מכשירים</h3><p>לא צריך רקע בהוראה</p>
         </div>
-        <div class="serv-card reveal" style="--i:3">
+        <div class="serv-card reveal-down" style="--i:3">
           <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="9" width="34" height="32" rx="4"/><path d="M7 18h34"/><path d="M15 5v8M33 5v8"/></svg>
           <h3>שעה בשבוע</h3><p>כל אחד לפי היכולת שלו</p>
         </div>
@@ -724,7 +760,7 @@ section{position:relative;}
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
 },{threshold:.01, rootMargin:"0px 0px 15% 0px"});
-document.querySelectorAll('.reveal,.reveal-scale,.reveal-r').forEach(el=>io.observe(el));
+document.querySelectorAll('.reveal,.reveal-scale,.reveal-r,.reveal-down').forEach(el=>io.observe(el));
 
 // nav scroll state
 const nav = document.getElementById('nav');
