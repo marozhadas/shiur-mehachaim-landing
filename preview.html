@@ -153,8 +153,15 @@ section{position:relative;}
 .hero-row{position:relative;z-index:2;width:80vw;aspect-ratio:1920/1083;margin:auto auto 0 auto;}
 /* anchored from the RIGHT at the exact width the copy panel starts (see .hero-copy width
    below) instead of pinned to the left with a fixed-px nudge — this way the photo always
-   meets the bubble panel with zero gap at any viewport width, no magic numbers needed. */
-.hero-photo{position:absolute;right:54%;bottom:0;height:88%;z-index:3;pointer-events:none;display:flex;align-items:flex-end;}
+   meets the bubble panel with zero gap at any viewport width, no magic numbers needed.
+   height:79% (not 100%) is the ONLY thing controlling the photo's apparent size — a plain
+   percentage of the vw-driven row, so it scales continuously with viewport width. Do not
+   "fine-tune" this via a transform:scale()/translate() on the img below: a % height keeps
+   the box (and therefore the img, which fills it) genuinely flush to bottom:0 at every
+   width; a scale/translate hack only fakes the size visually while quietly pulling the
+   image's painted edges away from the box it's supposed to fill, which is exactly what
+   caused the photo to float above the section's true bottom edge on wide/short screens. */
+.hero-photo{position:absolute;right:54%;bottom:0;height:79%;z-index:3;pointer-events:none;display:flex;align-items:flex-end;}
 .hero-photo img{height:100%;width:auto;max-width:none;display:block;filter:drop-shadow(0 30px 50px rgba(4,15,34,.4));transform:scale(1);transition:transform 1s var(--ease);}
 .hero:hover .hero-photo img{transform:scale(1.02);}
 .hero-copy{
@@ -405,28 +412,21 @@ section{position:relative;}
 /* ================= FINE-TUNE OVERRIDES (baked in from a visual-editor session, since
    visual-editor.js only persists edits in the browser that made them — otherwise every
    fresh visitor loses them, which is exactly what happened on GitHub Pages) ================= */
-.hero-photo img{object-fit:contain;transform:translate(154px,-89px) scale(.9)!important;}
 .next-gen-photo img{width:100%;transform:scale(1.07)!important;}
 .crisis-photo img{width:100%;object-fit:cover;transform:scale(1.04);}
 .next-gen-copy h2{line-height:1;text-align:center;transform:translate(14px,-28px) scale(1.45)!important;}
-.hero-bubble{padding:11px!important;z-index:999;transform:translate(-200px,-147px) scale(1.28)!important;}
 .stats-card{transform:translateY(-107px);}
-/* scale+line-height only (not the saved fixed fontSize:64px) — a fixed px size would
-   silently undo the vw-fluid clamp() sizing fix; scale is a pure multiplier on top of that
-   fluid size, so it stays responsive while still applying the requested size reduction. */
-.hero-title{transform:scale(.8)!important;line-height:1.05!important;}
+/* line-height only — the fixed fontSize and the scale() this bucket used to carry are both
+   gone: font-size already comes from .fs-hero's vw-fluid clamp(), and a scale() transform on
+   top of that (plus the matching one that used to live on .hero-bubble) was two more
+   fixed-multiplier hacks tuned per-breakpoint, which is exactly the "jumps at every screen
+   size" pattern being removed from this section. */
+.hero-title{line-height:1.05!important;}
 #who-fits{padding-bottom:80px;}
 #crisis{padding-bottom:51px;}
 #breakpoint{padding-bottom:31px;padding-top:55px;}
 #impact{padding-bottom:50px;padding-top:68px;}
 #register{padding-bottom:60px;padding-top:63px;}
-
-/* laptop bucket (~1440px and down to the section's real 980px stacking breakpoint — NOT
-   the editor's own 1024px, which would incorrectly straddle both layout modes) */
-@media (min-width:981px) and (max-width:1440px){
-  .hero-bubble{transform:translate(-79px,-196px) scale(1.14)!important;}
-  .hero-photo img{transform:translate(22px,-145px) scale(1.24)!important;}
-}
 
 /* ================= RESPONSIVE ================= */
 @media (max-width:980px){
@@ -434,12 +434,12 @@ section{position:relative;}
   .burger{display:block;}
   .next-gen .container,.founder .container{grid-template-columns:1fr;}
   /* stacked mobile layout: reset the desktop-only bottom-anchor/right-anchor/transform
-     tricks above back to plain, symmetric centering — figures centered, bubble centered
-     below them, button centered below that. */
+     tricks above back to plain, symmetric centering — bubble on top (order:1), figures
+     below it (order:2), button inside the bubble. */
   .hero-row{width:100%;aspect-ratio:auto;height:auto;min-height:0;max-height:none;display:flex;flex-direction:column;align-items:center;padding-top:clamp(90px,20vw,120px);margin:auto;}
-  .hero-photo{position:relative;left:auto;right:auto;bottom:auto;height:44vh;width:100%;display:flex;justify-content:center;order:1;transform:none;}
+  .hero-photo{position:relative;left:auto;right:auto;bottom:auto;height:44vh;width:100%;display:flex;justify-content:center;order:2;transform:none;}
   .hero-photo img{width:auto;height:100%;}
-  .hero-copy{position:relative;right:auto;top:auto;bottom:auto;width:100%;order:2;padding:clamp(20px,5vw,32px) 20px clamp(44px,7vw,60px);transform:none;align-items:center;}
+  .hero-copy{position:relative;right:auto;top:auto;bottom:auto;width:100%;order:1;padding:clamp(20px,5vw,32px) 20px clamp(44px,7vw,60px);transform:none;align-items:center;}
   .hero-bubble{max-width:100%;}
   .cards-row{grid-template-columns:repeat(2,1fr);}
   .impact-cols{grid-template-columns:1fr;}
@@ -450,17 +450,6 @@ section{position:relative;}
   .register-wrap{display:flex;flex-direction:column;}
   .register-card{margin:16px;max-width:none;}
   .founder-visual{margin-top:40px;}
-}
-/* tablet bucket, scoped to the section's actual stacked-layout zone (641–980px) rather than
-   the editor's raw 1024px threshold, so these transforms apply within the stacked/centered
-   layout they were meant for instead of leaking into the wide/absolute layout above 980px. */
-@media (min-width:641px) and (max-width:980px){
-  .hero-bubble{transform:translateX(164px)!important;}
-  .hero-photo img{transform:translate(-97px,164px) scale(1.51)!important;}
-}
-@media (max-width:640px){
-  .hero-bubble{transform:translate(62px,0) scale(.83)!important;}
-  .hero-photo img{transform:translate(-42px,200px) scale(1.1)!important;}
 }
 @media (max-width:620px){
   .cards-row{grid-template-columns:1fr;}
